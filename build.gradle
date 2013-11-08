@@ -1,0 +1,107 @@
+defaultTasks 'explodedWar'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+//apply plugin: 'gae'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+// Needed for 'gaeSdk' dep and 'gae' task.
+/*
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-gae-plugin:0.9'
+    }
+}
+*/
+
+dependencies {
+    // GAE
+    //gaeSdk 'com.google.appengine:appengine-java-sdk:1.8.7' // works only with buildscript{}
+    compile 'com.google.appengine:appengine-api-1.0-sdk:1.8.7'
+    compile ('com.googlecode.objectify:objectify:4.0rc2') {
+        exclude module: 'com.google.appengine:appengine-api-labs'
+    }
+
+    // Web stack
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'com.sun.jersey:jersey-server:1.17.1'
+    compile 'com.sun.jersey:jersey-servlet:1.17.1'
+    compile 'com.sun.jersey:jersey-core:1.17.1'
+    //compile 'com.google.inject.extensions:guice-servlet:3.0'
+    compile 'com.sun.jersey.contribs:jersey-guice:1.17.1'
+    compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.2.2' // Handle application/json
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.2'
+//    compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.2'
+    compile 'com.google.code.gson:gson:2.2.4'
+
+    // Logging
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'org.slf4j:slf4j-jdk14:1.7.5'
+
+
+    // Tools
+    compile 'com.google.inject:guice:3.0'
+    providedCompile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile 'com.google.guava:guava:14.0.1'
+    compile 'joda-time:joda-time:2.2'
+    compile 'javax.inject:javax.inject:1'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.commons:commons-lang3:3.1'
+
+
+    // Test
+    //testCompile 'junit:junit:4.11'
+    testCompile 'org.testng:testng:6.8.5'
+    testCompile 'org.mockito:mockito-all:1.9.5'
+}
+
+/*
+gae {
+    optimizeWar = true
+
+    appcfg {
+        email = 'dzmitry@duettoresearch.com'
+        passIn = true
+
+        app {
+            id = 'duetto-meme'
+        }
+    }
+}
+*/
+
+task explodedWar(type: Copy) {
+    into "$buildDir/exploded"
+    with war
+}
+
+
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+eclipse {
+    classpath {
+        downloadSources=true
+    }
+}
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = true
+    }
+}
+
+// Not really needed for wrapper, but for IDEA
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9-rc-2'
+}
