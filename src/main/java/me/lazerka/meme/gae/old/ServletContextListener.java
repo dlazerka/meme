@@ -11,6 +11,11 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
 
 	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
+		// Redirect java.util.logging through SLF4J.
+		// Doesn't work in GAE, cause java.util.logging.LogManager is restricted.
+		//SLF4JBridgeHandler.removeHandlersForRootLogger();
+		//SLF4JBridgeHandler.install();
+
 		ServletContext servletContext = servletContextEvent.getServletContext();
 
 		Injector injector = Guice.createInjector(new ServletModule());

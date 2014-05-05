@@ -1,6 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GAE Dev" type="GoogleAppEngineDevServer" factoryName="Local" APPLICATION_SERVER_NAME="AppEngine Dev 1.9.3" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
     <option name="OPEN_IN_BROWSER" value="false" />
+    <option name="COMMON_VM_ARGUMENTS" value="-Dlogback.configurationFile=WEB-INF/logback.xml" />
     <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
     <server-settings>
       <option name="artifact" value="Gradle : meme : meme-1.0.war (exploded)" />

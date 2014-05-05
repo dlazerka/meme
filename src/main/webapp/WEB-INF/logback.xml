@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2014 Dzmitry Lazerka
+  -->
+
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are by default assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="me.lazerka" level="DEBUG"/>
+
+    <!-- Chatterboxes -->
+    <logger name="com.sun.jersey" level="WARN"/>
+    <logger name="org.eclipse.jetty" level="WARN"/>
+
+</configuration>

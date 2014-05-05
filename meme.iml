@@ -71,7 +71,6 @@
     <orderEntry type="library" exported="" name="Gradle: jackson-annotations-2.4.0-rc2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-jaxrs-json-provider-2.4.0-rc2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.7" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: slf4j-jdk14-1.7.7" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-core-2.4.0-rc2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-databind-2.4.0-rc2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-jaxrs-base-2.4.0-rc2" level="project" />
@@ -79,6 +78,9 @@
     <orderEntry type="library" scope="TEST" name="Gradle: testng-6.8.8" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: appengine-api-stubs-1.9.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: appengine-testing-1.9.4" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-classic-1.1.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: logback-core-1.1.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jul-to-slf4j-1.7.5" level="project" />
   </component>
 </module>
 

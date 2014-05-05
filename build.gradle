@@ -43,13 +43,16 @@ dependencies {
 
     // Logging
     compile 'org.slf4j:slf4j-api:+' // 1.7.6
-    compile 'org.slf4j:slf4j-jdk14:+' // 1.7.6
+    //compile 'org.slf4j:slf4j-jdk14:+' // 1.7.6
+    compile 'ch.qos.logback:logback-classic:+'
+    compile 'ch.qos.logback:logback-core:+'
+    // Redirect java.util.logging (e.g. Guice's) to SLF4J.
+    compile 'org.slf4j:jul-to-slf4j:1.7.5'
 
     // DI
     compile 'javax.inject:javax.inject:1'
     compile 'com.google.inject:guice:+' // 3.0
     compile 'com.google.inject.extensions:guice-servlet:+' // 3.0
-
 
     // Test
     testCompile 'org.testng:testng:+' // 6.8.5
