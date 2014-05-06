@@ -33,9 +33,7 @@
           <element id="library" level="project" name="Gradle: jsr305-2.0.3" />
           <element id="library" level="project" name="Gradle: objectify-5.0.2" />
           <element id="library" level="project" name="Gradle: slf4j-api-1.7.7" />
-          <element id="library" level="project" name="Gradle: jul-to-slf4j-1.7.5" />
-          <element id="library" level="project" name="Gradle: logback-classic-1.1.2" />
-          <element id="library" level="project" name="Gradle: logback-core-1.1.2" />
+          <element id="library" level="project" name="Gradle: slf4j-jdk14-1.7.7" />
         </element>
       </element>
       <element id="directory" name="META-INF">

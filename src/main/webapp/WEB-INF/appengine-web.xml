@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>duetto-meme</application>
-	<version>1</version>
+	<application>b07b41c2</application>
+	<version>1-meme-test-index</version>
 
 	<threadsafe>true</threadsafe>
 
     <static-files>
-	    <include path="/favicon.ico" expiration="1d" />
-	    <include path="/robots.txt" expiration="1d" />
-	    <include path="/**.png" expiration="365d" />
-	    <include path="/**.jpeg" expiration="365d" />
-	    <include path="/**.jpg" expiration="365d" />
-	    <include path="/**.svg" expiration="365d" />
-	    <include path="/js/lib/**.js" expiration="365d" />
-    </static-files>
+	    <include path="/robots.txt"/>
+		<include path="/favicon.ico" expiration="1m"/>
+		<include path="/font/*" expiration="365d"/>
+		<include path="/**.png"  expiration="1s"/>
+		<include path="/**.jpeg"  expiration="1s"/>
+		<include path="/**.jpg"  expiration="1s"/>
+		<include path="/**.svg"  expiration="1s"/>
+		<include path="/js/lib/**.js"  expiration="1s"/>
+	</static-files>
 
+
+	<!--
 	<resource-files>
 		<include path="/**.css" />
 		<include path="/**.js" />
 		<include path="/index.html" />
 	</resource-files>
+	-->
 
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>

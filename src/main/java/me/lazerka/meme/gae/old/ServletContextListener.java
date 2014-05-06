@@ -24,6 +24,7 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
 
 	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
+		// App Engine does not currently invoke this method.
 		ServletContext servletContext = servletContextEvent.getServletContext();
 		servletContext.removeAttribute(INJECTOR_NAME);
 	}

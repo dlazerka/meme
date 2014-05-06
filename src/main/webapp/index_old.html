@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+
+<!-- Copyright (c) 2014 Dzmitry Lazerka -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>&lt;memegen&gt;</title>
+    <link rel="stylesheet" type="text/css" href="memgen.css?###APP_VERSION###">
+    <script>
+      const IS_AUTHENTICATED = ###IS_AUTHENTICATED###;
+      const ENV = '###ENV###';
+      const DELETED_MEMES_IDS = ###DELETED_MEMES_IDS###;
+      const ALL_MEMES = ###ALL_MEMES###;
+      const TOP_MEMES = ###TOP_MEMES###;
+      const MEMES_PER_PAGE = ###MEMES_PER_PAGE###;
+      const MEME = ###MEME###;
+    </script>
+    <script type="text/javascript" src="js/lib/underscore-1.4.2.js" defer></script>
+    <script type="text/javascript" src="js/lib/jquery-1.8.3.js" defer></script>
+    <script type="text/javascript" src="js/lib/backbone-0.9.9.js" defer></script>
+    <script type="text/javascript" src="memgen.js?###APP_VERSION###" defer></script>
+  </head>
+  <body>
+
+    <div id="msg" class="msg" style="display: none;"></div>
+
+    <h1 id="header">&lt;memegen&gt;</h1>
+
+    <div id="extensionAd" style="display:none;" class="extensionAd">
+      <a href="https://chrome.google.com/webstore/detail/epam-memegen/jgmpoflmemllolbnmidoclcpbpoabcib"
+        target="_blank" title="Stay Alert! Install Memegen Chrome Extension!">
+        <img src="img/chrome.png" width="36" height="36"/>
+      </a>
+    </div>
+
+    <div id="sidePane" class="visible_###IS_AUTHENTICATED###">
+      <button id="showCreateDialog">
+        Create
+      </button>
+      <br/>
+      <br/>
+
+      <button id="delete" style="display: none;">
+        Delete
+      </button>
+
+      <a id="navRecent" href="/">Recent</a>
+      <a id="navTop" href="/top">Top</a>
+    </div>
+
+    <div id="contentPane">
+      <div>
+        <div id="create" class="create"></div>
+      </div>
+
+      <div class="notDisplay_###IS_AUTHENTICATED###">
+        <a href="###LOGIN_URL###">Please login</a>.
+        Only registered accounts  are allowed<span class="display_###IS_LOGGED_IN###">,
+        but your email is <b>###USER_EMAIL###</b>.
+        <br/>
+        <br/>
+
+        If it keeps logging you into <b>###USER_EMAIL###</b> then you have to
+        <a href="###LOGOUT_URL###">logout</a> (logs you out of all google services)</span>.
+
+        <br/>
+        <br/>
+        Most people already have an account at <a href="http://google.com/a/epam.com">google.com/a/epam.com</a>,
+        but if you don't, please ask <b>helpdesk@epam.com</b>.
+        <br/>
+        Sorry for inconvenience, we're working on a more convenient authentication, using PMC API.
+      </div>
+
+      <div class="display_###IS_AUTHENTICATED###">
+        <div id="memesList"></div>
+        <div id="pagination" class="pagination">
+          <a id="prevPage">Previous Page</a>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a id="nextPage">Next Page</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

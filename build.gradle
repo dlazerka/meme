@@ -30,7 +30,7 @@ dependencies {
     }
 
     // Web stack
-    provided 'javax.servlet:servlet-api:2.5'
+    provided 'javax.servlet:servlet-api:2.5' // GAE has its own embedded servlet-api.
     compile 'com.sun.jersey:jersey-server:1.+' // 1.17.1
     compile 'com.sun.jersey:jersey-servlet:1.+'
     compile 'com.sun.jersey:jersey-core:1.+'
@@ -38,16 +38,15 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:+'
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:+' // Handle application/json
 
+    //provided 'org.eclipse.jetty:jetty-server:+'
+    //provided 'org.eclipse.jetty:jetty-servlet:+'
+
 //    compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.2'
     compile 'com.google.code.gson:gson:2.2.4' // TODO: remove
 
     // Logging
     compile 'org.slf4j:slf4j-api:+' // 1.7.6
-    //compile 'org.slf4j:slf4j-jdk14:+' // 1.7.6
-    compile 'ch.qos.logback:logback-classic:+'
-    compile 'ch.qos.logback:logback-core:+'
-    // Redirect java.util.logging (e.g. Guice's) to SLF4J.
-    compile 'org.slf4j:jul-to-slf4j:1.7.5'
+    compile 'org.slf4j:slf4j-jdk14:+' // 1.7.6
 
     // DI
     compile 'javax.inject:javax.inject:1'

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class GuiceFilter extends com.google.inject.servlet.GuiceFilter {
-	private static final Pattern PATTERN = Pattern.compile("/_ah/.*");
+	private final Pattern PATTERN = Pattern.compile("/_ah/.*");
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -17,7 +17,9 @@ public class GuiceFilter extends com.google.inject.servlet.GuiceFilter {
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		// Break the chain for dev server except warmup (must be handled by app).
-		if (PATTERN.matcher(req.getRequestURI()).matches() && !req.getRequestURI().equals("/_ah/warmup")) {
+		boolean isAhRequest = PATTERN.matcher(req.getRequestURI()).matches();
+		boolean isWarmupRequest = req.getRequestURI().equals("/_ah/warmup");
+		if (isAhRequest && !isWarmupRequest) {
 			chain.doFilter(request, response);
 			return ;
 		}

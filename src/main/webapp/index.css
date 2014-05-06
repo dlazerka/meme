@@ -1,0 +1,85 @@
+@font-face {
+	font-family:'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v7/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+@font-face {
+	font-family:'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v7/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+@font-face {
+	font-family:'Crafty Girls';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Crafty Girls'), local('CraftyGirls'), url(http://themes.googleusercontent.com/static/fonts/craftygirls/v3/0Sv8UWFFdhQmesHL32H8o3hCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+body {
+	background-color: #E5E5E5;
+	color: black;
+	font-size: 16px;
+	font-family: Georgia, sans-serif;
+	padding: 20px;
+	min-width: 670px;
+
+}
+button {
+	background-color: #0769AD;
+	border-width: 0;
+	/* border: 1px #999 solid;
+	border-width: 0 1 2 1;
+	border-radius: 1px; */
+	color: #fff;
+	font-family: Lato, sans-serif;
+	font-size: 20px;
+	padding: 5px 12px;
+	text-transform: capitalize;
+}
+button:hover {
+	box-shadow: 0px 0px 1px 0 #555;
+}
+button:active {
+	box-shadow: inset 0px 0px 1px 0 #555;
+}
+a {
+	color: #000;
+}
+.card {
+	box-shadow: 1px 1px 2px 0 #777;
+	background-color: #fff;
+	padding: 20px;
+}
+
+.logo {
+	font-family: Crafty Girls, serif;
+	font-size: 36px;
+	text-align: right;
+}
+.nav .entry {
+	padding: 5px 0;
+	font-size: larger;
+}
+.left {
+	float: left;
+	padding: 20px;
+	min-height: 300px;
+	width: 175px;
+}
+.nav {
+	background-color: #fff;
+	text-align: right;
+	padding: 10px 0 0 0;
+}
+.right {
+	display: inline-block;
+	margin-left: 20px;
+}
+.meme {
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+.meme img {
+	max-width: 400px;
+}
