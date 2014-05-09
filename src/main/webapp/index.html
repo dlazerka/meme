@@ -10,12 +10,8 @@
 	<link href='http://fonts.googleapis.com/css?family=Crafty+Girls' rel='stylesheet' type='text/css'>
 
 	<link href="/index.css" rel="stylesheet" type="text/css">
-
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js" async></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" async></script>
-	<script src="/index.js" async></script>
 </head>
-<body>
+<body ng-app>
 <div class="left card">
 	<div class="logo">Memegen</div>
 	<div class="nav">
@@ -36,13 +32,18 @@
 	</div>
 </div>
 <div class="right">
-	<div class="meme card">
-		<img src="https://lh4.googleusercontent.com/-I62oInsWIyY/UlmXCArzgDI/AAAAAAAAGAo/DST9Q1GYA70/w988-h1273-no/DUETTO_HORSE_01.JPG"/>
-	</div>
-	<div class="meme card">
-		<img src="https://lh4.googleusercontent.com/-I62oInsWIyY/UlmXCArzgDI/AAAAAAAAGAo/DST9Q1GYA70/w988-h1273-no/DUETTO_HORSE_01.JPG"/>
+	<div ng-controller="MemeController">
+		<div class="meme card" ng-repeat="meme in memes">
+			<img ng-src="{{meme.url}}"/>
+		</div>
 	</div>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" defer></script>
+
+<script src="/app.js" defer></script>
 
 </body>
 </html>
