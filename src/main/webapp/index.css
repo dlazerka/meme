@@ -83,3 +83,7 @@ a {
 .meme img {
 	max-width: 400px;
 }
+
+form.create {
+	text-align: center;
+}

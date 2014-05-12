@@ -1,4 +1,4 @@
-package me.lazerka.meme.gae.old;
+package me.lazerka.meme.gae;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class GuiceFilter extends com.google.inject.servlet.GuiceFilter {
-	private final static Logger logger = LoggerFactory.getLogger(GuiceFilter.class);
+/**
+ * @author Dzmitry Lazerka
+ */
+public class BypassGuiceFilter extends com.google.inject.servlet.GuiceFilter {
+	private final static Logger logger = LoggerFactory.getLogger(BypassGuiceFilter.class);
 
 	private final Pattern PATTERN = Pattern.compile("/_ah/.*");
 
@@ -27,7 +30,7 @@ public class GuiceFilter extends com.google.inject.servlet.GuiceFilter {
 		boolean isAhRequest = PATTERN.matcher(req.getRequestURI()).matches();
 		boolean isWarmupRequest = req.getRequestURI().equals("/_ah/warmup");
 		if (isAhRequest && !isWarmupRequest) {
-			logger.trace("Calling chain: isAhRequest={}, isWarmupRequest={}", isAhRequest, isWarmupRequest);
+			logger.trace("Bypassing Guice filter", isAhRequest, isWarmupRequest);
 			chain.doFilter(request, response);
 			return ;
 		}

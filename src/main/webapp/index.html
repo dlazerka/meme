@@ -8,15 +8,14 @@
 	<title>Memegen</title>
 
 	<link href='http://fonts.googleapis.com/css?family=Crafty+Girls' rel='stylesheet' type='text/css'>
-
 	<link href="/index.css" rel="stylesheet" type="text/css">
 </head>
-<body ng-app>
+<body ng-app="app">
 <div class="left card">
 	<div class="logo">Memegen</div>
 	<div class="nav">
 		<div class="entry">
-			<button>create</button>
+			<button ng-click="isCreating=true">Create</button>
 		</div>
 		<!--
 		<div class="entry">
@@ -32,17 +31,45 @@
 	</div>
 </div>
 <div class="right">
+
 	<div ng-controller="MemeController">
-		<div class="meme card" ng-repeat="meme in memes">
-			<img ng-src="{{meme.url}}"/>
-		</div>
+
+
+		<form class="card create" ng-show="isCreating">
+			<input type="file" name="file"
+			       ng-model="file"
+			       ng-change="fileChanged"/>
+			<input type="hidden" name="blobKey" ng-model="blobKey"/>
+
+			<!--
+			<div class="imageWithUpload">
+				<div id="preview" class="preview"></div>
+				<div id="uploadHelperText" class="uploadHelperText">
+					<a id="uploadLink" href="#">Upload</a> new image,<br/>
+					or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL"><br/>
+					or click on any meme.
+				</div>
+				<input id="uploadFile" class="uploadFile" type="file">
+				<br/>
+			</div>
+			-->
+
+			<div>
+				<button id="submit">Done</button>
+				<button id="cancel">Cancel</button>
+			</div>
+		</form>
+
+		<div class="meme card" ng-repeat="meme in memes" ng-view></div>
 	</div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js" defer></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js" defer></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" defer></script>
 
+<script src="/meme/meme.js" defer></script>
 <script src="/app.js" defer></script>
 
 </body>

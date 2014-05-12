@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
   <settings default="">
-    <module2copyright>
-      <element module="All" copyright="me.lazerka" />
-    </module2copyright>
+    <LanguageOptions name="JAVA">
+      <option name="fileLocation" value="3" />
+    </LanguageOptions>
   </settings>
 </component>
