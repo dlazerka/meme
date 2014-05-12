@@ -1,0 +1,17 @@
+.meme {
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+.meme img {
+	max-width: 400px;
+}
+
+form.create {
+	text-align: center;
+	margin: 0 0 20px 0;
+}
+
+form.input[type='file'] {
+	visibility: hidden;
+	position: absolute;
+}

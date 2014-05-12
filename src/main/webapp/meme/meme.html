@@ -1,1 +1,37 @@
-<img ng-src="{{meme.url}}"/>
+<link href="/meme/meme.css" rel="stylesheet" type="text/css">
+
+<form class="card create" ng-show="isCreating">
+	Drag & drop image here
+	<!--
+	<br> or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL">
+	<br> or click on any meme.
+	-->
+
+	<input type="file" name="file"
+	       ng-hide
+	       ng-model="file"
+	       ng-change="fileChanged"/>
+	<input type="hidden" name="blobKey" ng-model="blobKey"/>
+
+	<!--
+	<div class="imageWithUpload">
+		<div id="preview" class="preview"></div>
+		<div id="uploadHelperText" class="uploadHelperText">
+			<a id="uploadLink" href="#">Upload</a> new image,<br/>
+			or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL"><br/>
+			or click on any meme.
+		</div>
+		<input id="uploadFile" class="uploadFile" type="file">
+		<br/>
+	</div>
+	-->
+
+	<div>
+		<button id="submit">Done</button>
+		<button id="cancel">Cancel</button>
+	</div>
+</form>
+
+<div class="meme card" ng-repeat="meme in memes">
+	<img ng-src="{{meme.url}}"/>
+</div>

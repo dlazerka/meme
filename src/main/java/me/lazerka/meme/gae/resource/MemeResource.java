@@ -49,6 +49,7 @@ public class MemeResource {
 		m.setBlobKey(blobKey);
 		m.setTimeCreated(now);
 		entities.add(m);
+		entities.add(m);
 
 		logger.trace("Returning {} entities.", entities.size());
 
