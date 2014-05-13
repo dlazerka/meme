@@ -1,4 +1,5 @@
-.meme {
+.meme .savedmeme,
+.meme form {
 	text-align: center;
 	margin: 0 0 20px 0;
 }
@@ -6,12 +7,25 @@
 	max-width: 400px;
 }
 
-form.create {
-	text-align: center;
-	margin: 0 0 20px 0;
-}
-
-form.input[type='file'] {
+.meme form.input[type='file'] {
 	visibility: hidden;
 	position: absolute;
+}
+
+.meme .dragDrop {
+	border: 3px gray dashed;
+	color: #bbb;
+	font-size: 36px;
+	font-weight: bold;
+	padding: 40px 0;
+	width: 400px;
+}
+
+.meme .dragDrop.fileOverMe {
+	border: 3px #a1ed2a dashed;
+	color: #aaa;
+}
+
+.meme .controls {
+	padding: 10px 0 0 0;
 }
