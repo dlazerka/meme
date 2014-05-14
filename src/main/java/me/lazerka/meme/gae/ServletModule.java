@@ -3,6 +3,10 @@ package me.lazerka.meme.gae;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.mail.MailService;
 import com.google.appengine.api.mail.MailServiceFactory;
 import com.google.appengine.api.memcache.MemcacheService;
@@ -59,10 +63,12 @@ class ServletModule extends JerseyServletModule {
 	}
 
 	private void setUpResources() {
+		bind(BlobstoreService.class).toInstance(BlobstoreServiceFactory.getBlobstoreService());
+		bind(ImagesService.class).toInstance(ImagesServiceFactory.getImagesService());
 		bind(MailService.class).toInstance(MailServiceFactory.getMailService());
 		bind(MemcacheService.class).toInstance(MemcacheServiceFactory.getMemcacheService());
-		bind(UserService.class).toInstance(UserServiceFactory.getUserService());
 		bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
+		bind(UserService.class).toInstance(UserServiceFactory.getUserService());
 	}
 
 	private void setUpJackson() {

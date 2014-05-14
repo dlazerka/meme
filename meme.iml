@@ -48,7 +48,6 @@
     <orderEntry type="library" exported="" name="Gradle: guava-17.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: joda-time-2.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-lang3-3.3.2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: appengine-api-1.0-sdk-1.9.4" level="project" />
     <orderEntry type="library" exported="" name="Gradle: objectify-5.0.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jersey-server-1.18.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jersey-servlet-1.18.1" level="project" />
@@ -67,6 +66,7 @@
     <orderEntry type="library" exported="" name="Gradle: slf4j-jdk14-1.7.7" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: servlet-api-2.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: appengine-api-stubs-1.9.4" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="AppEngine Dev 1.9.3" level="application_server_libraries" />
   </component>
 </module>
 

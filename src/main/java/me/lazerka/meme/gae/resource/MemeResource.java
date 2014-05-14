@@ -1,6 +1,7 @@
 package me.lazerka.meme.gae.resource;
 
 import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
 import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.Ref;
@@ -25,6 +26,9 @@ public class MemeResource {
 	private static final Logger logger = LoggerFactory.getLogger(MemeResource.class);
 	@Inject
 	Objectify ofy;
+
+	@Inject
+	BlobstoreService blobstore;
 
 	@Inject
 	@Named("now")

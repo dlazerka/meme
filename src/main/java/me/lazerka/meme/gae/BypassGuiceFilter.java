@@ -27,12 +27,15 @@ public class BypassGuiceFilter extends com.google.inject.servlet.GuiceFilter {
 		HttpServletRequest req = (HttpServletRequest) request;
 
 		// Break the chain for dev server except warmup (must be handled by app).
-		boolean isAhRequest = PATTERN.matcher(req.getRequestURI()).matches();
-		boolean isWarmupRequest = req.getRequestURI().equals("/_ah/warmup");
+		String requestURI = req.getRequestURI();
+		boolean isAhRequest = PATTERN.matcher(requestURI).matches();
+		boolean isWarmupRequest = requestURI.equals("/_ah/warmup");
 		if (isAhRequest && !isWarmupRequest) {
-			logger.trace("Bypassing Guice filter", isAhRequest, isWarmupRequest);
+			logger.trace("Bypassing Guice filter: {}", requestURI);
 			chain.doFilter(request, response);
 			return ;
+		} else if (isAhRequest) {
+			logger.info("Warmup request, not bypassing Guice filter: {}", requestURI);
 		}
 
 		super.doFilter(request, response, chain);

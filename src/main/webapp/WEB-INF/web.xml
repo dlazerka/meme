@@ -25,6 +25,16 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>db</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>*</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>db</web-resource-name>
 			<url-pattern>/db/*</url-pattern>
 			<url-pattern>/db.html</url-pattern>
 		</web-resource-collection>
