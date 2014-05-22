@@ -1,10 +1,12 @@
 <div class="meme">
 	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
 
-	<form class="card create" ng-show="isCreating">
-		<div class="dragDrop" drop-here>
+	<form class="card create" ng-show="{{isCreating}}">
+		<div class="dragDrop" drop-here ng-show="{{!image}}">
 			Drag &amp; drop<br/> image here
 		</div>
+
+		<img ng-show="{{image}}" href="{{image.url}}"/>
 		<!--
 		<br> or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL">
 		<br> or click on any meme.
@@ -29,7 +31,7 @@
 		</div>
 		-->
 
-		<div class="controls">
+		<div class="controls" ng-show="{{!isCreating}}">
 			<button id="submit">Done</button>
 			<button id="cancel">Cancel</button>
 		</div>
@@ -38,5 +40,4 @@
 	<div class="card savedmeme" ng-repeat="meme in memes">
 		<img ng-src="{{meme.url}}"/>
 	</div>
-
 <div>

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
+ * Bypasses _ah/* requests except some.
+ *
  * @author Dzmitry Lazerka
  */
 public class BypassGuiceFilter extends com.google.inject.servlet.GuiceFilter {
@@ -26,16 +28,20 @@ public class BypassGuiceFilter extends com.google.inject.servlet.GuiceFilter {
 				: "not HTTP request");
 		HttpServletRequest req = (HttpServletRequest) request;
 
+
 		// Break the chain for dev server except warmup (must be handled by app).
 		String requestURI = req.getRequestURI();
 		boolean isAhRequest = PATTERN.matcher(requestURI).matches();
-		boolean isWarmupRequest = requestURI.equals("/_ah/warmup");
-		if (isAhRequest && !isWarmupRequest) {
+
+		// Here's the main thing.
+		boolean shouldGuiceHandle = requestURI.equals("/_ah/warmup") || requestURI.startsWith("/_ah/upload/");
+
+		if (isAhRequest && !shouldGuiceHandle) {
 			logger.trace("Bypassing Guice filter: {}", requestURI);
 			chain.doFilter(request, response);
 			return ;
 		} else if (isAhRequest) {
-			logger.info("Warmup request, not bypassing Guice filter: {}", requestURI);
+			logger.info("Not bypassing Guice filter: {}", requestURI);
 		}
 
 		super.doFilter(request, response, chain);

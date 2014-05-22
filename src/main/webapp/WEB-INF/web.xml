@@ -21,6 +21,12 @@
 		<filter-name>GuiceFilter</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
+	<!-- Needed for Dev mode UploadBlobServlet which forwards to a servlet handled by Guice. -->
+	<filter-mapping>
+		<filter-name>GuiceFilter</filter-name>
+		<url-pattern>*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 
 	<security-constraint>
 		<web-resource-collection>

@@ -19,20 +19,18 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author Dzmitry Lazerka
  */
-@Path(ImageResource.PATH)
+@Path("/image")
 public class ImageResource {
-	static final String PATH = "/image";
 
 	private static final Logger logger = LoggerFactory.getLogger(ImageResource.class);
 
-	private final String BLOBSTORE_CALLBACK = "/blob-key";
+	private final String BLOBSTORE_CALLBACK = "/blobstore-callback";
 
 	@Inject
 	Objectify ofy;
@@ -51,21 +49,23 @@ public class ImageResource {
 	@Produces("text/plain")
 	public String getUploadUrl(@Context UriInfo uriInfo) {
 		// Compute callback path to {@link #blobstoreCallback}.
-		URI absoluteUri = uriInfo.getBaseUriBuilder().path(ImageResource.class).path(BLOBSTORE_CALLBACK).build();
-		String path = absoluteUri.getPath();
+		String absolutePath = uriInfo.getBaseUriBuilder()
+				.path(ImageResource.class)
+				.path(BLOBSTORE_CALLBACK)
+				.build()
+				.getPath();
 
 		String uploadUrl = blobstore.createUploadUrl(
-				path,
+				absolutePath,
 				UploadOptions.Builder.withMaxUploadSizeBytes(32 << 20));
-		logger.debug("Generated upload url to {}: {}", path, uploadUrl);
+		logger.debug("Generated upload url to {}: {}", absolutePath, uploadUrl);
 		return uploadUrl;
 	}
 
 	@POST
 	@Path(BLOBSTORE_CALLBACK)
 	@Produces("text/plain")
-	public String blobstoreCallback(
-			@Context HttpServletRequest request) {
+	public String blobstoreCallback(@Context HttpServletRequest request) {
 		Map<String, List<BlobInfo>> uploads = blobstore.getBlobInfos(request);
 		String formFieldName = "file";
 		List<BlobInfo> blobInfos = uploads.get(formFieldName);

@@ -38,6 +38,8 @@ import javax.inject.Singleton;
 import java.util.Map;
 
 /**
+ * Workaround for Blobstore on Dev env. See ImageResource.
+ *
  * @author Dzmitry Lazerka
  */
 class ServletModule extends JerseyServletModule {
@@ -54,6 +56,7 @@ class ServletModule extends JerseyServletModule {
 		// Route all requests through GuiceContainer.
 //		serve("/db").with(DBServlet.class);
 		serve("/rest/*").with(GuiceContainer.class, getJerseyParams());
+		//serve("/image/blobstore-callback-dev").with(BlobstoreCallbackServlet.class);
 
 		setUpJackson();
 

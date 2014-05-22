@@ -70,13 +70,9 @@
 					return false;
 				}
 
-				var uploadUrlPromise = getUrlForUploadPromise();
-				function getUrlForUploadPromise() {
-					return $http.get('/rest/image/url-for-upload');
-				}
-
 				function uploadFile(file) {
-					uploadUrlPromise.success(function(url) {
+					$http.get('/rest/image/url-for-upload')
+					.success(function(url) {
 						var formData = new FormData();
 						formData.append('file', file);
 						$http({
@@ -91,15 +87,17 @@
 							}
 						})
 							.success(function(entity, code, fn, req) {
-								// Hooray, entity is URL!
+								if (entity.indexOf('http') !== 0) {
+									alert('Not an url: ' + entity);
+								}
+								$scope.image = {
+									url: entity
+								};
 							})
 							.error(function(entity, code, fn, req) {
 								alert(entity);
 							});
 					});
-
-					// Refresh upload.
-					uploadUrlPromise = getUrlForUploadPromise();
 
 					/*
 					 var fr = new FileReader();
