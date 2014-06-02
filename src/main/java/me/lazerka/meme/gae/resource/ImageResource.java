@@ -5,8 +5,6 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.UploadOptions;
 import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFailureException;
-import com.google.appengine.api.images.ServingUrlOptions.Builder;
 import com.googlecode.objectify.Objectify;
 import me.lazerka.meme.api.User;
 import org.slf4j.Logger;
@@ -64,8 +62,8 @@ public class ImageResource {
 
 	@POST
 	@Path(BLOBSTORE_CALLBACK)
-	@Produces("text/plain")
-	public String blobstoreCallback(@Context HttpServletRequest request) {
+	@Produces("application/json")
+	public BlobInfo blobstoreCallback(@Context HttpServletRequest request) {
 		Map<String, List<BlobInfo>> uploads = blobstore.getBlobInfos(request);
 		String formFieldName = "file";
 		List<BlobInfo> blobInfos = uploads.get(formFieldName);
@@ -83,25 +81,7 @@ public class ImageResource {
 			throw new WebApplicationException(response);
 		}
 
-		BlobInfo blobInfo = blobInfos.get(0);
-
-		String servingUrl;
-		try {
-			logger.debug("request.isSecure={}", request.isSecure());
-			servingUrl = images.getServingUrl(Builder.withBlobKey(blobInfo.getBlobKey()).secureUrl(request.isSecure()));
-		} catch (ImagesServiceFailureException e) {
-			logger.warn("Exception while asking Images service to serve blobIngo {}: {}", e.getMessage(), e);
-			blobstore.delete(blobInfo.getBlobKey());
-
-			Response response = Response.status(Status.BAD_REQUEST)
-					// message is empty actually
-					.entity("Image Service cannot serve it, is it an image?" + e.getMessage())
-					.build();
-			throw new WebApplicationException(response);
-		}
-		logger.info("Returning serving URL: {}", servingUrl);
-		// TODO return file name, size and whatnot.
-		return servingUrl;
+		return blobInfos.get(0);
 	}
 
 	/*

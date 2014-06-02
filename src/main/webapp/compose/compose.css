@@ -1,21 +1,17 @@
-.meme {
-	min-width: 400px;
-}
-.meme .savedmeme,
-.meme form {
+.compose form {
 	text-align: center;
 	margin: 0 0 20px 0;
 }
-.meme img {
+.compose img {
 	max-width: 400px;
 }
 
-.meme form.input[type='file'] {
+.compose form.input[type='file'] {
 	visibility: hidden;
 	position: absolute;
 }
 
-.meme .dragDrop {
+.compose .dragDrop {
 	border: 3px gray dashed;
 	color: #bbb;
 	font-size: 36px;
@@ -24,16 +20,16 @@
 	width: 400px;
 }
 
-.meme .dragDrop.fileOverMe {
+.compose .dragDrop.fileOverMe {
 	border: 3px #a1ed2a dashed;
 	color: #aaa;
 }
 
-.meme .controls {
+.compose .controls {
 	padding: 10px 0 0 0;
 	text-align: left;
 }
 
-.meme .controls button {
+.compose .controls button {
 	margin: 0 10px;
 }

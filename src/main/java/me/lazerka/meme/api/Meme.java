@@ -1,6 +1,7 @@
 package me.lazerka.meme.api;
 
 import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.datastore.Link;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 import org.joda.time.DateTime;
@@ -27,6 +28,9 @@ public class Meme {
 	DateTime timeModified;
 
 	BlobKey blobKey;
+
+	@Ignore
+	Link servingUrl;
 
 	final List<Caption> captions = new ArrayList<>(3);
 
@@ -67,6 +71,14 @@ public class Meme {
 
 	public void setBlobKey(BlobKey blobKey) {
 		this.blobKey = blobKey;
+	}
+
+	public Link getServingUrl() {
+		return servingUrl;
+	}
+
+	public void setServingUrl(Link servingUrl) {
+		this.servingUrl = servingUrl;
 	}
 
 	public List<Caption> getCaptions() {

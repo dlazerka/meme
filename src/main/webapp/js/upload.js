@@ -5,7 +5,7 @@ angular.module('me.lazerka.ng.upload', [])
  * Common routine for uploading file.
  */
 	.service('uploadService', function($http) {
-		this.uploadFile = function(file) {
+		this.uploadFile = function(file, $scope) {
 			if (!file.size) {
 				alert("File size is 0, is it a file?");
 				return;
@@ -33,9 +33,10 @@ angular.module('me.lazerka.ng.upload', [])
 							if (entity.indexOf('http') !== 0) {
 								alert('Not an url: ' + entity);
 							}
-							$scope.image = {
-								url: entity
-							};
+
+							this.file = entity;
+							$scope.$emit('fileUploaded');
+							//$scope.onFileUploaded(entity);
 						})
 						.error(function(entity, code, fn, req) {
 							alert(entity);
@@ -47,10 +48,8 @@ angular.module('me.lazerka.ng.upload', [])
  * Angular doesn't handle onchange for <input type="file">-s.
  */
 	.directive('myOnchange', function(uploadService) {
-
 		return {
-			scope: false,
-			link: function(scope, element, attrs) {
+			link: function($scope, element, attrs) {
 				element.bind('change', function(event) {
 					var files = event.target.files;
 					if (!files) {
@@ -58,7 +57,7 @@ angular.module('me.lazerka.ng.upload', [])
 					}
 					var file = files[0];
 
-					uploadService.uploadFile(file);
+					uploadService.uploadFile(file, $scope);
 				});
 			}
 		};
@@ -68,7 +67,6 @@ angular.module('me.lazerka.ng.upload', [])
  */
 	.directive('dropHere', function() {
 		return {
-			'scope': false,
 			'link': function($scope, element) {
 
 				element.bind('dragover dragleave', function(event) {
@@ -90,7 +88,7 @@ angular.module('me.lazerka.ng.upload', [])
 
 					var file = event.dataTransfer.files[0];
 
-					uploadService.uploadFile(file);
+					uploadService.uploadFile(file, $scope);
 				});
 
 				function isFileDrag(dragEvent) {

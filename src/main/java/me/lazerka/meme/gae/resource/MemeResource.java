@@ -2,6 +2,11 @@ package me.lazerka.meme.gae.resource;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.datastore.Link;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFailureException;
+import com.google.appengine.api.images.ServingUrlOptions;
+import com.google.appengine.api.images.ServingUrlOptions.Builder;
 import com.googlecode.objectify.NotFoundException;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.Ref;
@@ -13,7 +18,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import java.util.List;
@@ -31,11 +38,18 @@ public class MemeResource {
 	BlobstoreService blobstore;
 
 	@Inject
+	ImagesService images;
+
+
+	@Inject
 	@Named("now")
 	DateTime now;
 
 	@Inject
 	User user;
+
+	@Context
+	HttpServletRequest request;
 
 	@GET
 	@Produces("application/json")
@@ -55,9 +69,34 @@ public class MemeResource {
 		entities.add(m);
 		entities.add(m);
 
+		for(Meme meme : entities) {
+			Link link = getServingUrl(meme.getBlobKey());
+			meme.setServingUrl(link);
+		}
+
 		logger.trace("Returning {} entities.", entities.size());
 
 		return entities;
+	}
+
+	private Link getServingUrl(BlobKey blobKey) {
+		try {
+			logger.debug("request.isSecure={}", request.isSecure());
+			ServingUrlOptions urlOptions = Builder.withBlobKey(blobKey).secureUrl(request.isSecure());
+			String servingUrl = images.getServingUrl(urlOptions);
+			logger.debug("Created serving URL: {}", servingUrl);
+
+			return new Link(servingUrl);
+
+		} catch (ImagesServiceFailureException e) {
+			logger.warn("Exception while asking Images service to serve blobKey {}: {}", blobKey, e);
+
+			Response response = Response.status(Status.BAD_REQUEST)
+					// message is empty actually
+					.entity("Image Service cannot serve it, is it an image?" + e.getMessage())
+					.build();
+			throw new WebApplicationException(response);
+		}
 	}
 
 	@PUT

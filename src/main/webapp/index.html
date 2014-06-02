@@ -9,13 +9,14 @@
 
 	<link href="/index.css" rel="stylesheet" type="text/css">
 	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
+	<link href="/compose/compose.css" rel="stylesheet" type="text/css">
 </head>
 <body ng-app="me.lazerka.memegen">
 <div class="left card">
 	<div class="logo">Memegen</div>
 	<div class="nav">
 		<div class="entry">
-			<button ng-click="isCreating=true">Create</button>
+			<button ng-click="memegen.isCreatingMeme=true">Create</button>
 		</div>
 		<!--
 		<div class="entry">
@@ -39,14 +40,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js" defer></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" defer></script>
 
+<!-- App -->
+<script src="/memegen.js" defer></script>
 
-<script src="/app.js" defer></script>
+<!-- Common -->
+<script src="/js/upload.js" defer></script>
 
-<!-- Directives-->
-<script src="/js/directive/upload.js" defer></script>
-
-<!-- Controllers -->
+<!-- Modules -->
 <script src="/meme/meme.js" defer></script>
+<script src="/compose/compose.js" defer></script>
 
 
 </body>
