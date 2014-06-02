@@ -8,8 +8,9 @@
 	<title>Memegen</title>
 
 	<link href="/index.css" rel="stylesheet" type="text/css">
+	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
 </head>
-<body ng-app="app">
+<body ng-app="me.lazerka.memegen">
 <div class="left card">
 	<div class="logo">Memegen</div>
 	<div class="nav">
@@ -30,7 +31,7 @@
 	</div>
 </div>
 <div class="right">
-	<div ng-controller="MemeController" ng-view></div>
+	<div ng-view ng-cloak></div>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js" defer></script>
@@ -38,8 +39,15 @@
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js" defer></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" defer></script>
 
-<script src="/meme/meme.js" defer></script>
+
 <script src="/app.js" defer></script>
+
+<!-- Directives-->
+<script src="/js/directive/upload.js" defer></script>
+
+<!-- Controllers -->
+<script src="/meme/meme.js" defer></script>
+
 
 </body>
 </html>

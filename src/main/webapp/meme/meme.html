@@ -1,7 +1,6 @@
-<div class="meme">
-	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
+<div class="meme ng-cloak" ng-cloak>
 
-	<form class="card create" ng-show="{{isCreating}}">
+	<form class="card create" ng-show="{{isCreating}}" ng-model="creatingMeme">
 		<div class="dragDrop" drop-here ng-show="{{!image}}">
 			Drag &amp; drop<br/> image here
 		</div>
@@ -12,10 +11,6 @@
 		<br> or click on any meme.
 		-->
 
-		<input type="file" name="file"
-		       class="ng-hide"
-		       ng-model="file"
-		       ng-change="fileChanged"/>
 		<input type="hidden" name="blobKey" ng-model="blobKey"/>
 
 		<!--
@@ -31,9 +26,20 @@
 		</div>
 		-->
 
+		<div class="controls" ng-show="{{isCreating}}">
+			<div class="control">
+				<!--<button class="upload" onclick="$(this).next().click();">Upload</button>-->
+				Or <input type="file" my-onchange/>
+			</div>
+
+			<div class="control">
+				Or <input type="text" class="url" placeholder="Enter URL" ng-model="url">
+			</div>
+		</div>
+
 		<div class="controls" ng-show="{{!isCreating}}">
-			<button id="submit">Done</button>
-			<button id="cancel">Cancel</button>
+			<button class="submit">Done</button>
+			<button class="cancel">Cancel</button>
 		</div>
 	</form>
 
