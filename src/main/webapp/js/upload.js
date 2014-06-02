@@ -29,13 +29,12 @@ angular.module('me.lazerka.ng.upload', [])
 							'Content-Type': undefined
 						}
 					})
-						.success(function(entity, code, fn, req) {
-							if (entity.indexOf('http') !== 0) {
-								alert('Not an url: ' + entity);
+						.success(function(response, code, fn, req) {
+							if (!response.blobKey) {
+								alert('Not a blobInfo response from ' + req.url + ': ' + response);
 							}
 
-							this.file = entity;
-							$scope.$emit('fileUploaded');
+							$scope.$emit('fileUploaded', response);
 							//$scope.onFileUploaded(entity);
 						})
 						.error(function(entity, code, fn, req) {

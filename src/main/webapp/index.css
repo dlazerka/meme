@@ -8,15 +8,16 @@
 	font-family: 'Ubuntu';
 	font-style: normal;
 	font-weight: 700;
-	src: local('Ubuntu Bold'), local('Ubuntu-Bold'), url(http://themes.googleusercontent.com/static/fonts/ubuntu/v5/0ihfXUL2emPh0ROJezvraD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+	src: local('Ubuntu Bold'), url(http://themes.googleusercontent.com/static/fonts/ubuntu/v5/0ihfXUL2emPh0ROJezvraD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 body {
 	background-color: #E5E5E5;
 	color: black;
 	font-size: 16px;
 	font-family: Ubuntu, sans-serif;
-	padding: 20px;
 	min-width: 670px;
+	margin: 0;
+	padding: 20px;
 }
 button {
 	background-color: #0769AD;
@@ -54,7 +55,7 @@ a {
 .left {
 	float: left;
 	padding: 20px;
-	min-height: 300px;
+	min-height: 80vh;
 	width: 175px;
 }
 .nav {

@@ -4,7 +4,6 @@ import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.UploadOptions;
-import com.google.appengine.api.images.ImagesService;
 import com.googlecode.objectify.Objectify;
 import me.lazerka.meme.api.User;
 import org.slf4j.Logger;
@@ -12,11 +11,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,6 @@ public class ImageResource {
 
 	@Inject
 	BlobstoreService blobstore;
-
-	@Inject
-	ImagesService images;
 
 	@Inject
 	User user;
@@ -84,14 +82,17 @@ public class ImageResource {
 		return blobInfos.get(0);
 	}
 
-	/*
 	@GET
 	@Path("/{blobKey}")
-	@Produces("text/plain")
-	public String serve(@PathParam("blobKey") String blobKey) {
-		blobstore.serve(blobKey);
-		logger.debug("Generated upload url: {}", uploadUrl);
-		return uploadUrl;
+	public Response serve(@PathParam("blobKey") String blobKey, @Context HttpServletResponse resp) {
+		try {
+			blobstore.serve(new BlobKey(blobKey), resp);
+		} catch (IOException e) {
+			logger.error("Error serving {}", blobKey, e);
+			Response response = Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+			throw new WebApplicationException(response);
+		}
+
+		return Response.created(null).status(HttpServletResponse.SC_OK).build();
 	}
-	*/
 }

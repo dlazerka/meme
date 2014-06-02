@@ -1,14 +1,13 @@
-.compose form {
-	text-align: center;
+.compose.form {
 	margin: 0 0 20px 0;
 }
-.compose img {
-	max-width: 400px;
-}
-
 .compose form.input[type='file'] {
 	visibility: hidden;
 	position: absolute;
+}
+
+.compose img {
+	max-width: 400px;
 }
 
 .compose .dragDrop {
@@ -17,6 +16,7 @@
 	font-size: 36px;
 	font-weight: bold;
 	padding: 40px 0;
+	text-align: center;
 	width: 400px;
 }
 
@@ -26,10 +26,11 @@
 }
 
 .compose .controls {
-	padding: 10px 0 0 0;
 	text-align: left;
 }
 
-.compose .controls button {
-	margin: 0 10px;
+.compose .controls button,
+.compose input
+{
+	margin: 10px 10px 0 0;
 }

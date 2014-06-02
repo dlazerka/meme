@@ -1,41 +1,27 @@
-<div class="meme ng-cloak">
+<div class="memes ng-cloak">
 
-	<form class="card create" ng-show="memegen.isCreatingMeme" ng-controller="ComposeController">
-		<div class="dragDrop" drop-here>
-			Drag &amp; drop<br/> image here
-		</div>
+	<form class="card compose"
+	      ng-controller="ComposeController"
+	      ng-show="memegen.isCreatingMeme">
 
-		<img ng-show="{{image}}" href="{{image.url}}"/>
-		<!--
-		<br> or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL">
-		<br> or click on any meme.
-		-->
+		<div ng-if="!newMeme.blobKey">
+			<div class="dragDrop" drop-here>
+				Drag &amp; drop<br/> image here
 
-		<input type="hidden" name="blobKey" ng-model="blobKey"/>
-
-		<!--
-		<div class="imageWithUpload">
-			<div id="preview" class="preview"></div>
-			<div id="uploadHelperText" class="uploadHelperText">
-				<a id="uploadLink" href="#">Upload</a> new image,<br/>
-				or enter <input type="text" id="remoteImageUrl" class="remoteImageUrl" placeholder=" remote image URL"><br/>
-				or click on any meme.
 			</div>
-			<input id="uploadFile" class="uploadFile" type="file">
-			<br/>
-		</div>
-		-->
 
-		<div class="controls">
-			<div class="control">
+			<div>
 				<!--<button class="upload" onclick="$(this).next().click();">Upload</button>-->
 				Or <input type="file" my-onchange/>
 			</div>
 
-			<div class="control">
+			<div>
 				Or <input type="text" class="url" placeholder="Enter URL" ng-model="url">
 			</div>
 		</div>
+
+		<img ng-src="{{newMeme.url}}"
+		     ng-if="newMeme.blobKey"/>
 
 		<div class="controls" ng-show="{{!isCreating}}">
 			<button class="submit">Done</button>

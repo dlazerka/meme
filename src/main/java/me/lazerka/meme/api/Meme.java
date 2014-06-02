@@ -29,8 +29,8 @@ public class Meme {
 
 	BlobKey blobKey;
 
-	@Ignore
-	Link servingUrl;
+	@Ignore // UI only
+	Link url;
 
 	final List<Caption> captions = new ArrayList<>(3);
 

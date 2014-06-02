@@ -40,7 +40,6 @@ public class MemeResource {
 	@Inject
 	ImagesService images;
 
-
 	@Inject
 	@Named("now")
 	DateTime now;
@@ -48,12 +47,9 @@ public class MemeResource {
 	@Inject
 	User user;
 
-	@Context
-	HttpServletRequest request;
-
 	@GET
 	@Produces("application/json")
-	public List<Meme> get() {
+	public List<Meme> get(@Context HttpServletRequest request) {
 		List<Meme> entities = ofy.load()
 				.type(Meme.class)
 				.limit(100)
@@ -61,16 +57,9 @@ public class MemeResource {
 				.order("-tm")
 				.list();
 
-		Meme m = new Meme();
-		m.setCreator(user);
-		BlobKey blobKey = new BlobKey("asdf");
-		m.setBlobKey(blobKey);
-		m.setTimeCreated(now);
-		entities.add(m);
-		entities.add(m);
-
+		// Fill UI-only serving url.
 		for(Meme meme : entities) {
-			Link link = getServingUrl(meme.getBlobKey());
+			Link link = getServingUrl(meme.getBlobKey(), request);
 			meme.setServingUrl(link);
 		}
 
@@ -79,7 +68,7 @@ public class MemeResource {
 		return entities;
 	}
 
-	private Link getServingUrl(BlobKey blobKey) {
+	private Link getServingUrl(BlobKey blobKey, HttpServletRequest request) {
 		try {
 			logger.debug("request.isSecure={}", request.isSecure());
 			ServingUrlOptions urlOptions = Builder.withBlobKey(blobKey).secureUrl(request.isSecure());

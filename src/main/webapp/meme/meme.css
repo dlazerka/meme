@@ -1,8 +1,7 @@
 .meme {
 	min-width: 400px;
 }
-.meme .savedmeme,
-.meme form {
+.meme .savedmeme {
 	text-align: center;
 	margin: 0 0 20px 0;
 }
