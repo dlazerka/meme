@@ -17,12 +17,13 @@
           <element id="library" level="project" name="Gradle: guava-17.0" />
           <element id="library" level="project" name="Gradle: guice-3.0" />
           <element id="library" level="project" name="Gradle: guice-servlet-3.0" />
-          <element id="library" level="project" name="Gradle: jackson-annotations-2.4.0-rc2" />
-          <element id="library" level="project" name="Gradle: jackson-core-2.4.0-rc2" />
-          <element id="library" level="project" name="Gradle: jackson-databind-2.4.0-rc2" />
-          <element id="library" level="project" name="Gradle: jackson-jaxrs-base-2.4.0-rc2" />
-          <element id="library" level="project" name="Gradle: jackson-jaxrs-json-provider-2.4.0-rc2" />
-          <element id="library" level="project" name="Gradle: jackson-module-jaxb-annotations-2.4.0-rc2" />
+          <element id="library" level="project" name="Gradle: jackson-annotations-2.4.0" />
+          <element id="library" level="project" name="Gradle: jackson-core-2.4.0-rc3" />
+          <element id="library" level="project" name="Gradle: jackson-databind-2.4.0-rc3" />
+          <element id="library" level="project" name="Gradle: jackson-datatype-joda-2.4.0-rc3" />
+          <element id="library" level="project" name="Gradle: jackson-jaxrs-base-2.4.0-rc3" />
+          <element id="library" level="project" name="Gradle: jackson-jaxrs-json-provider-2.4.0-rc3" />
+          <element id="library" level="project" name="Gradle: jackson-module-jaxb-annotations-2.4.0-rc3" />
           <element id="library" level="project" name="Gradle: javax.inject-1" />
           <element id="library" level="project" name="Gradle: jersey-core-1.18.1" />
           <element id="library" level="project" name="Gradle: jersey-guice-1.18.1" />
@@ -33,7 +34,7 @@
           <element id="library" level="project" name="Gradle: objectify-5.0.2" />
           <element id="library" level="project" name="Gradle: slf4j-api-1.7.7" />
           <element id="library" level="project" name="Gradle: slf4j-jdk14-1.7.7" />
-          <element id="library" level="project" name="Gradle: appengine-api-1.0-sdk-1.9.4" />
+          <element id="library" level="project" name="Gradle: appengine-api-1.0-sdk-1.9.5" />
         </element>
       </element>
       <element id="directory" name="META-INF">

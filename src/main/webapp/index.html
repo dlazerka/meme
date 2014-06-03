@@ -16,7 +16,7 @@
 	<div class="logo">Memegen</div>
 	<div class="nav">
 		<div class="entry">
-			<button ng-click="memegen.isCreatingMeme=true">Create</button>
+			<button ng-click="$broadcast('nav.create')">Create</button>
 		</div>
 		<!--
 		<div class="entry">

@@ -1,38 +1,7 @@
 .meme {
-	min-width: 400px;
-}
-.meme .savedmeme {
 	text-align: center;
 	margin: 0 0 20px 0;
 }
 .meme img {
-	max-width: 400px;
-}
-
-.meme form.input[type='file'] {
-	visibility: hidden;
-	position: absolute;
-}
-
-.meme .dragDrop {
-	border: 3px gray dashed;
-	color: #bbb;
-	font-size: 36px;
-	font-weight: bold;
-	padding: 40px 0;
-	width: 400px;
-}
-
-.meme .dragDrop.fileOverMe {
-	border: 3px #a1ed2a dashed;
-	color: #aaa;
-}
-
-.meme .controls {
-	padding: 10px 0 0 0;
-	text-align: left;
-}
-
-.meme .controls button {
-	margin: 0 10px;
+	width: 500px;
 }

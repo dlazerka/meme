@@ -18,9 +18,13 @@ angular.module('me.lazerka.memegen', [
 		$locationProvider.html5Mode(true);
 	})
 	.controller('MemesController', function($rootScope, $scope, $resource) {
-		var Meme = $resource('/rest/meme:id', {});
-		$scope.memes = Meme.query(function(data) {
-			// hm, nothing
+		// TODO: extract into a Service maybe?
+		var memeResource = $resource('/rest/meme:id', {});
+
+		$scope.memes = memeResource.query(function(data) {});
+
+		$scope.$on('compose.created', function(event, memePromise) {
+			$scope.memes.unshift(memePromise);
 		});
 	});
 

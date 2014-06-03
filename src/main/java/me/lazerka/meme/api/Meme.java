@@ -1,7 +1,6 @@
 package me.lazerka.meme.api;
 
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.datastore.Link;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 import org.joda.time.DateTime;
@@ -22,15 +21,9 @@ public class Meme {
 	Long id;
 
 	@Index
-	DateTime timeCreated;
+	DateTime createdAt;
 
-	@Index
-	DateTime timeModified;
-
-	BlobKey blobKey;
-
-	@Ignore // UI only
-	Link url;
+	Image image;
 
 	final List<Caption> captions = new ArrayList<>(3);
 
@@ -38,10 +31,12 @@ public class Meme {
 		return creator;
 	}
 
+	@JsonIgnore
 	public void setCreator(Ref<User> creator) {
 		this.creator = creator;
 	}
 
+	@JsonIgnore
 	public void setCreator(User creator) {
 		this.creator = Ref.create(creator);
 	}
@@ -57,28 +52,20 @@ public class Meme {
 		this.id = id;
 	}
 
-	public DateTime getTimeCreated() {
-		return timeCreated;
+	public DateTime getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setTimeCreated(DateTime timeCreated) {
-		this.timeCreated = timeCreated;
+	public void setCreatedAt(DateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public BlobKey getBlobKey() {
-		return blobKey;
+	public Image getImage() {
+		return image;
 	}
 
-	public void setBlobKey(BlobKey blobKey) {
-		this.blobKey = blobKey;
-	}
-
-	public Link getServingUrl() {
-		return servingUrl;
-	}
-
-	public void setServingUrl(Link servingUrl) {
-		this.servingUrl = servingUrl;
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	public List<Caption> getCaptions() {
@@ -90,6 +77,8 @@ public class Meme {
 		return "Meme{" +
 				"creator=" + creator +
 				", id=" + id +
+				", createdAt=" + createdAt +
+				", image=" + image +
 				", captions=" + captions +
 				'}';
 	}

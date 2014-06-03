@@ -64,7 +64,7 @@ angular.module('me.lazerka.ng.upload', [])
 /**
  * Dra&drop handler.
  */
-	.directive('dropHere', function() {
+	.directive('dropHere', function(uploadService) {
 		return {
 			'link': function($scope, element) {
 

@@ -37,12 +37,11 @@ dependencies {
     compile 'com.sun.jersey.contribs:jersey-guice:1.+'
     compile 'com.fasterxml.jackson.core:jackson-annotations:+'
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:+' // Handle application/json
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:+'
 
     //provided 'org.eclipse.jetty:jetty-server:+'
     //provided 'org.eclipse.jetty:jetty-servlet:+'
 
-//    compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.2'
-    compile 'com.google.code.gson:gson:2.2.4' // TODO: remove
 
     // Logging
     compile 'org.slf4j:slf4j-api:+' // 1.7.6

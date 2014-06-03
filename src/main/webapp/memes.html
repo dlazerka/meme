@@ -1,10 +1,10 @@
 <div class="memes ng-cloak">
 
-	<form class="card compose"
+	<form class="card compose ng-cloak"
 	      ng-controller="ComposeController"
-	      ng-show="memegen.isCreatingMeme">
+	      ng-show="meme">
 
-		<div ng-if="!newMeme.blobKey">
+		<div ng-if="!meme.image">
 			<div class="dragDrop" drop-here>
 				Drag &amp; drop<br/> image here
 
@@ -15,21 +15,23 @@
 				Or <input type="file" my-onchange/>
 			</div>
 
+			<!-- TODO
 			<div>
-				Or <input type="text" class="url" placeholder="Enter URL" ng-model="url">
+				Or <input type="text" class="url" placeholder="Enter URL" ng-model="meme.image.url">
 			</div>
+			-->
 		</div>
 
-		<img ng-src="{{newMeme.url}}"
-		     ng-if="newMeme.blobKey"/>
+		<img ng-src="{{meme.image.url}}"
+		     ng-if="meme.image"/>
 
-		<div class="controls" ng-show="{{!isCreating}}">
-			<button class="submit">Done</button>
-			<button class="cancel" ng-click="memegen.isCreatingMeme=false">Cancel</button>
+		<div class="controls" ng-show="{{!meme}}">
+			<button class="done" ng-click="submit()">Save</button>
+			<button class="cancel" ng-click="cancel()">Cancel</button>
 		</div>
 	</form>
 
 	<div class="card savedmeme meme" ng-repeat="meme in memes">
-		<img ng-src="{{meme.url}}"/>
+		<img ng-src="{{meme.image.url}}"/>
 	</div>
 <div>

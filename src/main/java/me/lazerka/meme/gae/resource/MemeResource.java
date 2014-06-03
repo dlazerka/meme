@@ -2,7 +2,6 @@ package me.lazerka.meme.gae.resource;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.datastore.Link;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFailureException;
 import com.google.appengine.api.images.ServingUrlOptions;
@@ -54,13 +53,14 @@ public class MemeResource {
 				.type(Meme.class)
 				.limit(100)
 				.chunkAll()
-				.order("-tm")
+				.order("-createdAt")
 				.list();
 
 		// Fill UI-only serving url.
 		for(Meme meme : entities) {
-			Link link = getServingUrl(meme.getBlobKey(), request);
-			meme.setServingUrl(link);
+			BlobKey blobKey = meme.getImage().getBlobKey();
+			String url = getServingUrl(blobKey, request);
+			meme.getImage().setUrl(url);
 		}
 
 		logger.trace("Returning {} entities.", entities.size());
@@ -68,14 +68,16 @@ public class MemeResource {
 		return entities;
 	}
 
-	private Link getServingUrl(BlobKey blobKey, HttpServletRequest request) {
+	private String getServingUrl(BlobKey blobKey, HttpServletRequest request) {
 		try {
 			logger.debug("request.isSecure={}", request.isSecure());
-			ServingUrlOptions urlOptions = Builder.withBlobKey(blobKey).secureUrl(request.isSecure());
+			ServingUrlOptions urlOptions = Builder.withBlobKey(blobKey)
+					.secureUrl(request.isSecure())
+					.imageSize(500); // must conform to CSS
 			String servingUrl = images.getServingUrl(urlOptions);
 			logger.debug("Created serving URL: {}", servingUrl);
 
-			return new Link(servingUrl);
+			return servingUrl;
 
 		} catch (ImagesServiceFailureException e) {
 			logger.warn("Exception while asking Images service to serve blobKey {}: {}", blobKey, e);
@@ -88,35 +90,72 @@ public class MemeResource {
 		}
 	}
 
+	@POST
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Meme create(Meme meme) {
+		logger.trace("Posted meme {}", meme.toString());
+
+		if (meme.getId() != null) {
+			throw new WebApplicationException(Status.FORBIDDEN);
+		}
+
+		meme.setCreatedAt(now);
+		meme.setCreator(user);
+
+		ofy.save().entity(meme).now();
+
+		logger.info("Created meme {}", meme.toString());
+
+		return meme;
+	}
+
+	/*
+	Disable updates for now.
+
 	@PUT
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Meme put(Meme meme) {
-		logger.trace("Putting meme {}", meme.toString());
+	public Meme update(Meme meme) {
+		logger.trace("Putted meme {}", meme.toString());
 
-		meme.setTimeCreated(now);
-		meme.setCreator(user);
+		Meme existing = fetchExisting(meme);
+		checkCreator(existing);
+
+		if (!existing.getCreatedAt().equals(meme.getCreatedAt())) {
+			Response response = Response.status(Status.FORBIDDEN).entity("You cannot modify timeCreated").build();
+			throw new WebApplicationException(response);
+		}
 
 		ofy.save().entity(meme).now();
 
 		return meme;
 	}
+	*/
 
 	@DELETE
 	@Consumes("application/json")
-	public void delete(Meme memeFromClient) {
+	public void delete(Meme meme) {
+		Meme existing = fetchExisting(meme);
+		checkCreator(existing);
+
+		ofy.delete().entity(meme).now();
+	}
+
+	private void checkCreator(Meme existing) {
+		if (!existing.getCreatorRef().equals(Ref.create(user))) {
+			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you").build();
+			throw new WebApplicationException(response);
+		}
+	}
+
+	private Meme fetchExisting(Meme memeFromClient) {
 		Meme memeFromDb;
 		try {
 			memeFromDb = ofy.load().entity(memeFromClient).safe();
 		} catch (NotFoundException e) {
 			throw new WebApplicationException(Status.NOT_FOUND);
 		}
-
-		if (!memeFromDb.getCreatorRef().equals(Ref.create(user))) {
-			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you").build();
-			throw new WebApplicationException(response);
-		}
-
-		ofy.delete().entity(memeFromClient).now();
+		return memeFromDb;
 	}
 }

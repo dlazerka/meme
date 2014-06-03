@@ -2,6 +2,7 @@ package me.lazerka.meme.gae;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
@@ -82,6 +83,7 @@ class ServletModule extends JerseyServletModule {
 
 		// Probably we don't want to serialize Ref in full, but as Key always.
 		mapper.registerModule(new ObjectifyJacksonModule());
+		mapper.registerModule(new JodaModule());
 
 		JacksonJsonProvider provider = new JacksonJsonProvider(mapper);
 
