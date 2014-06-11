@@ -14,6 +14,8 @@ angular.module('me.lazerka.ng.upload', [])
 				return;
 			}
 
+			$scope.$emit('fileUploadStarted', file);
+
 			$http.get('/rest/image/url-for-upload')
 				.success(function(url) {
 					var formData = new FormData();

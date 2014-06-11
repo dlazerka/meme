@@ -8,7 +8,6 @@ angular.module('me.lazerka.memegen', [
 	.config(function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'memes.html',
 				controller: 'MemesController'
 			})
 			.otherwise({
