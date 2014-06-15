@@ -1,9 +1,13 @@
 /** Author Dzmitry Lazerka */
 
 angular.module('me.lazerka.ng.upload', [])
-/**
- * Common routine for uploading file.
- */
+	/**
+	 * Common routine for uploading file.
+	 *
+	 * Events:
+	 *     fileUploadStarted -- after file has read from filesystem, but before upload started or even upload url requested.
+	 *     fileUploaded -- after file was uploaded successfully.
+	 */
 	.service('uploadService', function($http) {
 		this.uploadFile = function(file, $scope) {
 			if (!file.size) {
@@ -14,7 +18,19 @@ angular.module('me.lazerka.ng.upload', [])
 				return;
 			}
 
-			$scope.$emit('fileUploadStarted', file);
+			var fr = new FileReader();
+			fr.readAsDataURL(file);
+			fr.onload = function (event) {
+				var dataUrl = event.target.result;
+				$scope.$apply(function() {
+					$scope.file = {
+						blobKey: null,
+						fileName: file.name,
+						size: file.size,
+						url: dataUrl
+					};
+				});
+			};
 
 			$http.get('/rest/image/url-for-upload')
 				.success(function(url) {
@@ -24,7 +40,7 @@ angular.module('me.lazerka.ng.upload', [])
 						url: url,
 						method: 'POST',
 						data: formData,
-						// Prevent Angular to serialize data.
+						// Prevent Angular from serializing data.
 						transformRequest: angular.identity,
 						headers: {
 							// Browser will set 'multipart/form-data' and correct boundary.
@@ -36,8 +52,12 @@ angular.module('me.lazerka.ng.upload', [])
 								alert('Not a blobInfo response from ' + req.url + ': ' + response);
 							}
 
-							$scope.$emit('fileUploaded', response);
-							//$scope.onFileUploaded(entity);
+							$scope.file = {
+								blobKey: response.blobKey,
+								fileName: response.filename, // note case
+								size: response.size,
+								url: '/rest/image/' + response.blobKey
+							};
 						})
 						.error(function(entity, code, fn, req) {
 							alert(entity);
@@ -50,6 +70,9 @@ angular.module('me.lazerka.ng.upload', [])
  */
 	.directive('myOnchange', function(uploadService) {
 		return {
+			scope: {
+				file: '=file'
+			},
 			link: function($scope, element, attrs) {
 				element.bind('change', function(event) {
 					var files = event.target.files;
@@ -68,7 +91,10 @@ angular.module('me.lazerka.ng.upload', [])
  */
 	.directive('dropHere', function(uploadService) {
 		return {
-			'link': function($scope, element) {
+			scope: {
+				file: '=file'
+			},
+			link: function($scope, element) {
 
 				element.bind('dragover dragleave', function(event) {
 					// !!! Caution, dragover is expensive (like mousemove) !!!

@@ -39,21 +39,15 @@
 		      ng-show="meme">
 
 			<div ng-if="!meme.image">
-				<div class="dragDrop" drop-here>
+				<div class="dragDrop" drop-here file="meme.image">
 					Drag &amp; drop<br/> image here
-
 				</div>
 
 				<div>
-					<!--<button class="upload" onclick="$(this).next().click();">Upload</button>-->
-					Or <input type="file" my-onchange/>
+					Or <input type="file" my-onchange file="meme.image"/>
 				</div>
 
-				<!-- TODO
-				<div>
-					Or <input type="text" class="url" placeholder="Enter URL" ng-model="meme.image.url">
-				</div>
-				-->
+				<!-- TODO <div>Or <input type="text" class="url" placeholder="Enter URL"></div> -->
 			</div>
 
 			<img ng-src="{{meme.image.url}}"
