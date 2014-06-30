@@ -68,7 +68,9 @@
 			<div class="card savedmeme meme" ng-repeat="meme in memes" >
 				<img ng-src="{{meme.image.url}}"/>
 				<div class="controls">
-					<div class="delete"></div>
+					<div class="delete">
+						<span class="glyphicon glyphicon-trash form-control-feedback"></span>
+					</div>
 				</div>
 			</div>
 		</div>

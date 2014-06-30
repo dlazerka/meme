@@ -5,3 +5,9 @@
 .meme img {
 	width: 500px;
 }
+
+.meme .controls .delete {
+	text-align: right;
+	font-size: 12px; /* image size */
+	cursor: pointer;
+}

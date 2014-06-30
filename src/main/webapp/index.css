@@ -2,13 +2,19 @@
 	font-family: 'Ubuntu';
 	font-style: normal;
 	font-weight: 400;
-	src: local('Ubuntu'), url(http://themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
+	src: local('Ubuntu'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v5/_xyN3apAT_yRRDeqB3sPRg.woff) format('woff');
 }
 @font-face {
 	font-family: 'Ubuntu';
 	font-style: normal;
 	font-weight: 700;
-	src: local('Ubuntu Bold'), url(http://themes.googleusercontent.com/static/fonts/ubuntu/v5/0ihfXUL2emPh0ROJezvraD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+	src: local('Ubuntu Bold'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v5/0ihfXUL2emPh0ROJezvraD8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/font/glyphicons-halflings-regular.woff') format('woff');
 }
 body {
 	background-color: #E5E5E5;
@@ -68,3 +74,19 @@ a {
 	margin-left: 20px;
 }
 
+/** From Bootstrap */
+.glyphicon {
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.glyphicon-trash:before {
+	content: '\e020';
+}

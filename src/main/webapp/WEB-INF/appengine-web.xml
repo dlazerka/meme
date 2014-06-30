@@ -11,10 +11,10 @@
 
 		<include path="/font/*" expiration="365d"/>
 
-		<include path="/img/**.png"/>
-		<include path="/img/**.jpeg"/>
-		<include path="/img/**.jpg"/>
-		<include path="/img/**.svg"/>
+		<include path="/image/**.png"/>
+		<include path="/image/**.jpeg"/>
+		<include path="/image/**.jpg"/>
+		<include path="/image/**.svg"/>
 
 		<include path="/**.js"/>
 		<include path="/**.css"/>
