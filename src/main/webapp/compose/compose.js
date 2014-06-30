@@ -10,8 +10,7 @@ angular.module('me.lazerka.memegen.meme.compose', ['ngResource', 'me.lazerka.ng.
 		$scope.submit = function() {
 			var memeResource = $resource('/rest/meme:id', {});
 			var memePromise = memeResource.save($scope.meme, function(meme, headersFn) {
-				// Nothing.
-				console.log(arguments);
+				console.log("Meme saved on server: " + meme.id);
 			});
 
 			$scope.$emit('compose.created', memePromise);

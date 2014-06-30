@@ -19,11 +19,6 @@ body {
 	margin: 0;
 	padding: 20px;
 }
-/** Initialize fonts (Chrome doesn't load them until displayed) */
-body::after {
-	content: '';
-	font-family: Ubuntu, sans-serif;
-}
 button {
 	background-color: #0769AD;
 	border-width: 0;

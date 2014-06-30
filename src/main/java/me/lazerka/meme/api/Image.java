@@ -1,5 +1,6 @@
 package me.lazerka.meme.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Link;
 import com.googlecode.objectify.annotation.Ignore;
@@ -7,6 +8,7 @@ import com.googlecode.objectify.annotation.Ignore;
 /**
  * @author Dzmitry Lazerka
  */
+@JsonIgnoreProperties("dataUrl") // May make sense to accept after image processing on JS is done.
 public class Image {
 	BlobKey blobKey;
 

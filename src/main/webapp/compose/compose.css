@@ -1,4 +1,4 @@
-.compose.form {
+form.compose {
 	margin: 0 0 20px 0;
 }
 .compose form.input[type='file'] {
@@ -17,7 +17,7 @@
 	font-weight: bold;
 	padding: 40px 0;
 	text-align: center;
-	width: 400px;
+	width: 494px;
 }
 
 .compose .dragDrop.fileOverMe {

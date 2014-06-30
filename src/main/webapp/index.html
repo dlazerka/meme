@@ -10,6 +10,11 @@
 	<link href="/index.css" rel="stylesheet" type="text/css">
 	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
 	<link href="/compose/compose.css" rel="stylesheet" type="text/css">
+	<script type="text/css">
+		.ng-cloak {
+			visibility: hidden;
+		}
+	</script>
 </head>
 <body ng-app="me.lazerka.memegen">
 <div class="left card">
@@ -32,7 +37,7 @@
 	</div>
 </div>
 <div class="right">
-	<div class="memes ng-cloak">
+	<div class="ng-cloak" ng-controller="MemegenController">
 
 		<form class="card compose ng-cloak"
 		      ng-controller="ComposeController"
@@ -59,8 +64,13 @@
 			</div>
 		</form>
 
-		<div class="card savedmeme meme" ng-repeat="meme in memes">
-			<img ng-src="{{meme.image.url}}"/>
+		<div>
+			<div class="card savedmeme meme" ng-repeat="meme in memes" >
+				<img ng-src="{{meme.image.url}}"/>
+				<div class="controls">
+					<div class="delete"></div>
+				</div>
+			</div>
 		</div>
 	<div>
 </div>

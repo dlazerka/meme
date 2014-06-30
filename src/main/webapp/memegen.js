@@ -16,7 +16,7 @@ angular.module('me.lazerka.memegen', [
 
 		$locationProvider.html5Mode(true);
 	})
-	.controller('MemesController', function($rootScope, $scope, $resource) {
+	.controller('MemegenController', function($rootScope, $scope, $resource) {
 		// TODO: extract into a Service maybe?
 		var memeResource = $resource('/rest/meme:id', {});
 

@@ -9,7 +9,15 @@ angular.module('me.lazerka.ng.upload', [])
 	 *     fileUploaded -- after file was uploaded successfully.
 	 */
 	.service('uploadService', function($http) {
+		/**
+		 * @param file {File}
+		 * @param $scope for $apply. (Is it bug-prone when scope gets detached?)
+		 */
 		this.uploadFile = function(file, $scope) {
+			// Forking out the mutable variable to change its contents twice.
+			var result = {};
+			$scope.file = result;
+
 			if (!file.size) {
 				alert("File size is 0, is it a file?");
 				return;
@@ -23,12 +31,13 @@ angular.module('me.lazerka.ng.upload', [])
 			fr.onload = function (event) {
 				var dataUrl = event.target.result;
 				$scope.$apply(function() {
-					$scope.file = {
+					angular.extend(result, {
 						blobKey: null,
 						fileName: file.name,
 						size: file.size,
-						url: dataUrl
-					};
+						dataUrl: dataUrl,
+						url: null
+					});
 				});
 			};
 
@@ -52,15 +61,16 @@ angular.module('me.lazerka.ng.upload', [])
 								alert('Not a blobInfo response from ' + req.url + ': ' + response);
 							}
 
-							$scope.file = {
+							angular.extend(result, {
 								blobKey: response.blobKey,
 								fileName: response.filename, // note case
 								size: response.size,
+								dataUrl: null,
 								url: '/rest/image/' + response.blobKey
-							};
+							});
 						})
-						.error(function(entity, code, fn, req) {
-							alert(entity);
+						.error(function(response, code, fn, req) {
+							alert(response);
 						});
 				});
 		};
