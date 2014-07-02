@@ -68,7 +68,7 @@
 			<div class="card savedmeme meme" ng-repeat="meme in memes" >
 				<img ng-src="{{meme.image.url}}"/>
 				<div class="controls">
-					<div class="delete">
+					<div class="delete" ng-click="remove(meme)" ng-show="{{meme.id}}">
 						<span class="glyphicon glyphicon-trash form-control-feedback"></span>
 					</div>
 				</div>
@@ -77,10 +77,11 @@
 	<div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.js" defer></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-resource.js" defer></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js" defer></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js" defer></script>
+<script src="/js/lib/underscore-1.6.0.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-resource.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.js" defer></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js" defer></script>
 
 <!-- App -->
 <script src="/memegen.js" defer></script>

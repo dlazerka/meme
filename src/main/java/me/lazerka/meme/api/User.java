@@ -4,6 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
 /**
+ * Virtual entity, only for key parent. Nothing is stored in DB actually.
  * @author Dzmitry Lazerka
  */
 @Entity(name = "User")

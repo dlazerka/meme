@@ -1,6 +1,7 @@
 package me.lazerka.meme.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 import org.joda.time.DateTime;
@@ -15,7 +16,7 @@ import java.util.List;
 @Cache
 public class Meme {
 	@Parent
-	Ref<User> creator;
+	Ref<User> owner;
 
 	@Id
 	Long id;
@@ -27,18 +28,24 @@ public class Meme {
 
 	final List<Caption> captions = new ArrayList<>(3);
 
-	public Ref<User> getCreatorRef() {
-		return creator;
+	@JsonIgnore
+	public Ref<User> getOwnerRef() {
+		return owner;
+	}
+
+	@JsonProperty("ownerEmail")
+	public String getOwnerEmail() {
+		return owner.getKey().getName();
 	}
 
 	@JsonIgnore
-	public void setCreator(Ref<User> creator) {
-		this.creator = creator;
+	public void setOwner(Ref<User> owner) {
+		this.owner = owner;
 	}
 
 	@JsonIgnore
-	public void setCreator(User creator) {
-		this.creator = Ref.create(creator);
+	public void setOwner(User owner) {
+		this.owner = Ref.create(owner);
 	}
 
 	public Long getId() {
@@ -75,7 +82,7 @@ public class Meme {
 	@Override
 	public String toString() {
 		return "Meme{" +
-				"creator=" + creator +
+				"owner=" + owner +
 				", id=" + id +
 				", createdAt=" + createdAt +
 				", image=" + image +

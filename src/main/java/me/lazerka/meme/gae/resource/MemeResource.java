@@ -6,9 +6,8 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFailureException;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.images.ServingUrlOptions.Builder;
-import com.googlecode.objectify.NotFoundException;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.Ref;
 import me.lazerka.meme.api.Meme;
 import me.lazerka.meme.api.User;
 import org.joda.time.DateTime;
@@ -101,7 +100,7 @@ public class MemeResource {
 		}
 
 		meme.setCreatedAt(now);
-		meme.setCreator(user);
+		meme.setOwner(user);
 
 		ofy.save().entity(meme).now();
 
@@ -134,28 +133,19 @@ public class MemeResource {
 	*/
 
 	@DELETE
+	@Path("/{ownerEmail}/{id}")
 	@Consumes("application/json")
-	public void delete(Meme meme) {
-		Meme existing = fetchExisting(meme);
-		checkCreator(existing);
-
-		ofy.delete().entity(meme).now();
-	}
-
-	private void checkCreator(Meme existing) {
-		if (!existing.getCreatorRef().equals(Ref.create(user))) {
-			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you").build();
+	public void delete(@PathParam("ownerEmail") String ownerEmail, @PathParam("id") long id) {
+		/*
+		if (!user.getEmail().equals(owner)) {
+			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you.").build();
 			throw new WebApplicationException(response);
 		}
-	}
+		*/
 
-	private Meme fetchExisting(Meme memeFromClient) {
-		Meme memeFromDb;
-		try {
-			memeFromDb = ofy.load().entity(memeFromClient).safe();
-		} catch (NotFoundException e) {
-			throw new WebApplicationException(Status.NOT_FOUND);
-		}
-		return memeFromDb;
+		Key<User> userKey = Key.create(User.class, ownerEmail);
+		Key<Meme> memeKey = Key.create(userKey, Meme.class, id);
+
+		ofy.delete().key(memeKey).now();
 	}
 }

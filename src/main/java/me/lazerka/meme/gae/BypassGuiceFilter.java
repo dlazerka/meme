@@ -23,11 +23,13 @@ public class BypassGuiceFilter extends com.google.inject.servlet.GuiceFilter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		logger.trace("Got request: {}", request instanceof HttpServletRequest
-				? ((HttpServletRequest) request).getRequestURI()
-				: "not HTTP request");
+		if (request instanceof HttpServletRequest) {
+			HttpServletRequest req = (HttpServletRequest) request;
+			logger.trace("Got request: {} {}", req.getMethod(), req.getRequestURI());
+		} else {
+			logger.warn("Got non-HTTP request (length={})", request.getContentLength());
+		}
 		HttpServletRequest req = (HttpServletRequest) request;
-
 
 		// Break the chain for dev server except warmup (must be handled by app).
 		String requestURI = req.getRequestURI();

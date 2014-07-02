@@ -80,6 +80,7 @@ class ServletModule extends JerseyServletModule {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
 		// Probably we don't want to serialize Ref in full, but as Key always.
 		mapper.registerModule(new ObjectifyJacksonModule());

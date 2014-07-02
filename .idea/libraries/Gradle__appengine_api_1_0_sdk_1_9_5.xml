@@ -4,6 +4,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.appengine/appengine-api-1.0-sdk/1.9.5/f2a2fc6423bdbae3ccd245affd292bd1da4d7082/appengine-api-1.0-sdk-1.9.5.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$USER_HOME$/opt/googleappengine-read-only/java/src/main" />
+    </SOURCES>
   </library>
 </component>
