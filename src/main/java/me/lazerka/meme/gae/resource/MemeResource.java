@@ -147,5 +147,7 @@ public class MemeResource {
 		Key<Meme> memeKey = Key.create(userKey, Meme.class, id);
 
 		ofy.delete().key(memeKey).now();
+
+		// TODO: remove blob or not?
 	}
 }

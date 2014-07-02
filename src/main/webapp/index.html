@@ -55,8 +55,13 @@
 				<!-- TODO <div>Or <input type="text" class="url" placeholder="Enter URL"></div> -->
 			</div>
 
-			<img ng-src="{{meme.image.url}}"
-			     ng-if="meme.image"/>
+			<div class="image" ng-if="meme.image">
+				<img ng-src="{{meme.image.url}}"/>
+				<input type="text" class="caption top"
+				       ng-model="captions.top" />
+				<input type="text" class="caption bottom"
+				       ng-model="captions.bottom"/>
+			</div>
 
 			<div class="controls" ng-show="{{!meme}}">
 				<button class="done" ng-click="submit()">Save</button>

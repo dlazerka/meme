@@ -1,11 +1,11 @@
 form.compose {
 	margin: 0 0 20px 0;
 }
-.compose form.input[type='file'] {
-	visibility: hidden;
-	position: absolute;
-}
 
+.compose .image {
+	/* To position .capture relative to this. */
+	position: relative;
+}
 .compose img {
 	width: 500px;
 }
@@ -30,7 +30,32 @@ form.compose {
 }
 
 .compose .controls button,
-.compose input
+.compose .controls input
 {
 	margin: 10px 10px 0 0;
 }
+
+.compose input.caption {
+	border: 2px gray dashed;
+	background-color: rgba(255,255,255,.2);
+	color: #fff;
+	display: block;
+	font-size: 30px;
+	font-family: 'Open Sans Condensed', 'Impact', sans-serif;
+	margin: 0 5px;
+	/*opacity: 0.3;*/
+	position: absolute;
+	text-align: center;
+	width: 485px;
+}
+.compose input.caption:focus {
+	background-color: transparent;
+}
+
+.compose .caption.top {
+	top: 20px;
+}
+.compose .caption.bottom {
+	top: 250px;
+}
+

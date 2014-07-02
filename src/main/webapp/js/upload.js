@@ -61,6 +61,8 @@ angular.module('me.lazerka.ng.upload', [])
 								alert('Not a blobInfo response from ' + req.url + ': ' + response);
 							}
 
+							console.log('Blob ' + response.blobKey + ' uploaded to server.');
+
 							angular.extend(result, {
 								blobKey: response.blobKey,
 								fileName: response.filename, // note case

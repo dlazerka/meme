@@ -5,6 +5,7 @@ angular.module('me.lazerka.memegen', [
 	'me.lazerka.memegen.meme.compose',
 	'ngRoute'
 ])
+	.constant('MEME_URL', '/rest/meme/:ownerEmail/:id')
 	.config(function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/', {
@@ -16,9 +17,9 @@ angular.module('me.lazerka.memegen', [
 
 		$locationProvider.html5Mode(true);
 	})
-	.controller('MemegenController', function($rootScope, $scope, $resource) {
+	.controller('MemegenController', function($rootScope, $scope, $resource, MEME_URL) {
 		// TODO: extract into a Service maybe?
-		var memeResource = $resource('/rest/meme/:ownerEmail/:id', {});
+		var memeResource = $resource(MEME_URL, {});
 
 		$scope.memes = memeResource.query(function(data) {});
 
