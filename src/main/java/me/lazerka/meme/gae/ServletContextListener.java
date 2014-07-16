@@ -2,6 +2,7 @@ package me.lazerka.meme.gae;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import me.lazerka.meme.MemeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
 
 		ServletContext servletContext = servletContextEvent.getServletContext();
 
-		Injector injector = Guice.createInjector(new ServletModule());
+		Injector injector = Guice.createInjector(new MemeModule());
 		servletContext.setAttribute(INJECTOR_NAME, injector);
 	}
 

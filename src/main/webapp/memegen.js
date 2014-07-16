@@ -6,7 +6,7 @@ angular.module('me.lazerka.memegen', [
 	'ngRoute'
 ])
 	.constant('MEME_URL', '/rest/meme/:ownerEmail/:id')
-	.config(function($routeProvider, $locationProvider) {
+	.config(function($routeProvider, $locationProvider, $httpProvider) {
 		$routeProvider
 			.when('/', {
 				controller: 'MemesController'
@@ -16,6 +16,18 @@ angular.module('me.lazerka.memegen', [
 			});
 
 		$locationProvider.html5Mode(true);
+
+
+		// Register $http interceptor to provide common AJAX error behavior.
+		$httpProvider.interceptors.push(function($q) {
+			return {
+				// data, status, headersFn, config
+				'responseError': function(rejection) {
+					alert(rejection.status + ' ' + rejection.statusText + '\n' + rejection.data);
+					return $q.reject(rejection);
+				}
+			};
+		});
 	})
 	.controller('MemegenController', function($rootScope, $scope, $resource, MEME_URL) {
 		// TODO: extract into a Service maybe?

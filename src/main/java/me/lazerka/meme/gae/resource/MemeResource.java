@@ -6,16 +6,12 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFailureException;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.images.ServingUrlOptions.Builder;
-import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Objectify;
 import me.lazerka.meme.api.Meme;
-import me.lazerka.meme.api.User;
-import org.joda.time.DateTime;
+import me.lazerka.meme.MemeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -29,8 +25,6 @@ import java.util.List;
 @Path("/meme")
 public class MemeResource {
 	private static final Logger logger = LoggerFactory.getLogger(MemeResource.class);
-	@Inject
-	Objectify ofy;
 
 	@Inject
 	BlobstoreService blobstore;
@@ -39,32 +33,21 @@ public class MemeResource {
 	ImagesService images;
 
 	@Inject
-	@Named("now")
-	DateTime now;
-
-	@Inject
-	User user;
+	MemeService memeService;
 
 	@GET
 	@Produces("application/json")
 	public List<Meme> get(@Context HttpServletRequest request) {
-		List<Meme> entities = ofy.load()
-				.type(Meme.class)
-				.limit(100)
-				.chunkAll()
-				.order("-createdAt")
-				.list();
+		List<Meme> memes = memeService.getLatest(100);
 
 		// Fill UI-only serving url.
-		for(Meme meme : entities) {
+		for(Meme meme : memes) {
 			BlobKey blobKey = meme.getImage().getBlobKey();
 			String url = getServingUrl(blobKey, request);
 			meme.getImage().setUrl(url);
 		}
 
-		logger.trace("Returning {} entities.", entities.size());
-
-		return entities;
+		return memes;
 	}
 
 	private String getServingUrl(BlobKey blobKey, HttpServletRequest request) {
@@ -99,12 +82,7 @@ public class MemeResource {
 			throw new WebApplicationException(Status.FORBIDDEN);
 		}
 
-		meme.setCreatedAt(now);
-		meme.setOwner(user);
-
-		ofy.save().entity(meme).now();
-
-		logger.info("Created meme {}", meme.toString());
+		memeService.create(meme);
 
 		return meme;
 	}
@@ -133,21 +111,9 @@ public class MemeResource {
 	*/
 
 	@DELETE
-	@Path("/{ownerEmail}/{id}")
+	@Path("/{id}")
 	@Consumes("application/json")
-	public void delete(@PathParam("ownerEmail") String ownerEmail, @PathParam("id") long id) {
-		/*
-		if (!user.getEmail().equals(owner)) {
-			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you.").build();
-			throw new WebApplicationException(response);
-		}
-		*/
-
-		Key<User> userKey = Key.create(User.class, ownerEmail);
-		Key<Meme> memeKey = Key.create(userKey, Meme.class, id);
-
-		ofy.delete().key(memeKey).now();
-
-		// TODO: remove blob or not?
+	public void delete(@PathParam("id") long id) {
+		memeService.delete(id);
 	}
 }

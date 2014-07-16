@@ -2,13 +2,23 @@
 project.version = '1.0'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 //apply plugin: 'war'
 
-// From http://forums.gradle.org/gradle/topics/how_do_i_best_define_dependencies_as_provided
-configurations {provided}
-sourceSets {
-    main { compileClasspath += configurations.provided }
+// From http://stackoverflow.com/questions/20421681
+// See also http://forums.gradle.org/gradle/topics/how_do_i_best_define_dependencies_as_provided
+configurations {
+    provided
+    provided.extendsFrom(compile)
 }
+idea {
+    module {
+        scopes.PROVIDED.plus += configurations.provided
+    }
+}
+//sourceSets {
+//    main { compileClasspath += configurations.provided }
+//}
 
 sourceCompatibility = 1.7
 
@@ -28,6 +38,11 @@ dependencies {
     compile ('com.googlecode.objectify:objectify:+') {
         exclude module: 'com.google.appengine:appengine-api-labs'
     }
+
+    // SQL
+    compile 'mysql:mysql-connector-java:5.+' // dev only
+    compile 'org.mybatis:mybatis:+'
+    compile 'org.mybatis:mybatis-guice:+'
 
     // Web stack
     provided 'javax.servlet:servlet-api:2.5' // GAE has its own embedded servlet-api.
@@ -51,6 +66,7 @@ dependencies {
     compile 'javax.inject:javax.inject:1'
     compile 'com.google.inject:guice:+' // 3.0
     compile 'com.google.inject.extensions:guice-servlet:+' // 3.0
+    compile 'com.google.inject.extensions:guice-multibindings:3.0'
 
     // Test
     testCompile 'org.testng:testng:+' // 6.8.5

@@ -4,37 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.mail.MailService;
-import com.google.appengine.api.mail.MailServiceFactory;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.appengine.api.urlfetch.URLFetchService;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.common.collect.Maps;
-import com.google.inject.Provides;
-import com.googlecode.objectify.Objectify;
-import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyFilter;
-import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.impl.translate.opt.joda.JodaTimeTranslators;
 import com.googlecode.objectify.util.jackson.ObjectifyJacksonModule;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
-import me.lazerka.meme.api.Meme;
-import me.lazerka.meme.api.User;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.Map;
 
@@ -43,8 +21,9 @@ import java.util.Map;
  *
  * @author Dzmitry Lazerka
  */
-class ServletModule extends JerseyServletModule {
+public class ServletModule extends JerseyServletModule {
 	private static final Logger logger = LoggerFactory.getLogger(ServletModule.class);
+
 	@Override
 	protected void configureServlets() {
 		logger.trace("configureServlets");
@@ -59,20 +38,9 @@ class ServletModule extends JerseyServletModule {
 		serve("/rest/*").with(GuiceContainer.class, getJerseyParams());
 		//serve("/image/blobstore-callback-dev").with(BlobstoreCallbackServlet.class);
 
+		bind(UnhandledExceptionMapper.class);
+
 		setUpJackson();
-
-		setUpResources();
-
-		setUpObjectify();
-	}
-
-	private void setUpResources() {
-		bind(BlobstoreService.class).toInstance(BlobstoreServiceFactory.getBlobstoreService());
-		bind(ImagesService.class).toInstance(ImagesServiceFactory.getImagesService());
-		bind(MailService.class).toInstance(MailServiceFactory.getMailService());
-		bind(MemcacheService.class).toInstance(MemcacheServiceFactory.getMemcacheService());
-		bind(URLFetchService.class).toInstance(URLFetchServiceFactory.getURLFetchService());
-		bind(UserService.class).toInstance(UserServiceFactory.getUserService());
 	}
 
 	private void setUpJackson() {
@@ -89,23 +57,6 @@ class ServletModule extends JerseyServletModule {
 		JacksonJsonProvider provider = new JacksonJsonProvider(mapper);
 
 		bind(JacksonJsonProvider.class).toInstance(provider);
-	}
-
-	private void setUpObjectify() {
-		logger.trace("setUpObjectify");
-		ObjectifyFactory factory = ObjectifyService.factory();
-		JodaTimeTranslators.add(factory);
-
-		factory.register(Meme.class);
-		factory.register(User.class);
-
-		// Warmup Objectify.
-		Objectify ofy = factory.begin();
-		ofy.load()
-				.type(Meme.class)
-				.keys()
-				.first()
-				.now();
 	}
 
 	private Map<String, String> getJerseyParams() {
@@ -125,21 +76,4 @@ class ServletModule extends JerseyServletModule {
 		//params.put("com.sun.jersey.config.feature.Trace", "true");
 		return params;
 	}
-
-	@Provides
-	private Objectify provideOfy() {
-		return ObjectifyService.ofy();
-	}
-
-	@Provides
-	private User provideUser(UserService userService) {
-		return new User(userService.getCurrentUser());
-	}
-
-	@Provides
-	@Named("now")
-	private DateTime now() {
-		return DateTime.now(DateTimeZone.UTC);
-	}
-
 }

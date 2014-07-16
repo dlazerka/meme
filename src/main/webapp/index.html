@@ -72,6 +72,9 @@
 		<div>
 			<div class="card savedmeme meme" ng-repeat="meme in memes" >
 				<img ng-src="{{meme.image.url}}"/>
+				<div class="captions">
+					<div class="caption" ng-repeat="caption in meme.captions">df{{caption.text}}</div>
+				</div>
 				<div class="controls">
 					<div class="delete" ng-click="remove(meme)" ng-show="{{meme.id}}">
 						<span class="glyphicon glyphicon-trash form-control-feedback"></span>

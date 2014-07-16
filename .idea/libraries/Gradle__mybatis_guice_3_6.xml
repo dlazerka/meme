@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: mybatis-guice-3.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis-guice/3.6/51a687887aaa4fa5488b3322a50d452338b0af7f/mybatis-guice-3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis-guice/3.6/5e0d6eff8983013335e6caffa6d5e8e1a728da6f/mybatis-guice-3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

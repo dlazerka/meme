@@ -16,7 +16,6 @@ angular.module('me.lazerka.ng.upload', [])
 		this.uploadFile = function(file, $scope) {
 			// Forking out the mutable variable to change its contents twice.
 			var result = {};
-			$scope.file = result;
 
 			if (!file.size) {
 				alert("File size is 0, is it a file?");
@@ -70,9 +69,10 @@ angular.module('me.lazerka.ng.upload', [])
 								dataUrl: null,
 								url: '/rest/image/' + response.blobKey
 							});
-						})
-						.error(function(response, code, fn, req) {
-							alert(response);
+
+							// This line is here, not after `result` declaration, because on error we want to
+							// keep $scope.file intact.
+							$scope.file = result;
 						});
 				});
 		};
