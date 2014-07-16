@@ -41,40 +41,43 @@ angular.module('me.lazerka.ng.upload', [])
 			};
 
 			$http.get('/rest/image/url-for-upload')
-				.success(function(url) {
-					var formData = new FormData();
-					formData.append('file', file);
-					$http({
-						url: url,
-						method: 'POST',
-						data: formData,
-						// Prevent Angular from serializing data.
-						transformRequest: angular.identity,
-						headers: {
-							// Browser will set 'multipart/form-data' and correct boundary.
-							'Content-Type': undefined
-						}
-					})
-						.success(function(response, code, fn, req) {
-							if (!response.blobKey) {
-								alert('Not a blobInfo response from ' + req.url + ': ' + response);
-							}
-
-							console.log('Blob ' + response.blobKey + ' uploaded to server.');
-
-							angular.extend(result, {
-								blobKey: response.blobKey,
-								fileName: response.filename, // note case
-								size: response.size,
-								dataUrl: null,
-								url: '/rest/image/' + response.blobKey
-							});
-
-							// This line is here, not after `result` declaration, because on error we want to
-							// keep $scope.file intact.
-							$scope.file = result;
-						});
+			.then(function(value) {
+				var url = value.data;
+				var formData = new FormData();
+				formData.append('file', file);
+				return $http({
+					url: url,
+					method: 'POST',
+					data: formData,
+					// Prevent Angular from serializing data.
+					transformRequest: angular.identity,
+					headers: {
+						// Browser will set 'multipart/form-data' and correct boundary.
+						'Content-Type': undefined
+					}
 				});
+			})
+			.then(function(value) {
+				var response = value.data;
+				if (!response.blobKey) {
+					alert('Not a blobInfo response from ' + value.config.url + ': ' + response);
+					return;
+				}
+
+				console.log('Blob ' + response.blobKey + ' uploaded to server.');
+
+				angular.extend(result, {
+					blobKey: response.blobKey,
+					fileName: response.filename, // note case
+					size: response.size,
+					dataUrl: null,
+					url: '/rest/image/' + response.blobKey
+				});
+
+				// This line is here, not after `result` declaration, because on error we want to
+				// keep $scope.file intact.
+				$scope.file = result;
+			});
 		};
 	})
 /**
@@ -88,7 +91,8 @@ angular.module('me.lazerka.ng.upload', [])
 			link: function($scope, element, attrs) {
 				element.bind('change', function(event) {
 					var files = event.target.files;
-					if (!files) {
+					if (!files || !files.length) {
+						// May happen if you select a file, and then click Choose again and click Cancel.
 						throw Error('No files in ' + event.target);
 					}
 					var file = files[0];
