@@ -4,7 +4,6 @@ import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.UploadOptions;
-import com.googlecode.objectify.Objectify;
 import me.lazerka.meme.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +29,6 @@ public class ImageResource {
 	private static final Logger logger = LoggerFactory.getLogger(ImageResource.class);
 
 	private final String BLOBSTORE_CALLBACK = "/blobstore-callback";
-
-	@Inject
-	Objectify ofy;
 
 	@Inject
 	BlobstoreService blobstore;
