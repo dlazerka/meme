@@ -38,7 +38,9 @@ public class MemeServiceOfy implements MemeService {
 				.order("-createdAt")
 				.list();
 
-		logger.trace("Fetched {} memes, latest {}.", result.size(), result.get(0).getId());
+        if (!result.isEmpty()) {
+            logger.trace("Fetched {} memes, latest {}.", result.size(), result.get(0).getId());
+        }
 
 		return result;
 	}
@@ -68,7 +70,5 @@ public class MemeServiceOfy implements MemeService {
 		ofy.delete().key(memeKey).now();
 
 		logger.info("Deleted meme {}", id);
-
-		// TODO: remove blob or not?
 	}
 }

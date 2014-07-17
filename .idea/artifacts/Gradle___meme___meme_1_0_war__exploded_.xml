@@ -25,7 +25,6 @@
           <element id="library" level="project" name="Gradle: jsr305-2.0.3" />
           <element id="library" level="project" name="Gradle: slf4j-api-1.7.7" />
           <element id="library" level="project" name="Gradle: slf4j-jdk14-1.7.7" />
-          <element id="library" level="project" name="Gradle: appengine-api-1.0-sdk-1.9.6" />
           <element id="library" level="project" name="Gradle: jackson-annotations-2.4.1" />
           <element id="library" level="project" name="Gradle: jackson-core-2.4.1" />
           <element id="library" level="project" name="Gradle: jackson-databind-2.4.1" />
@@ -38,6 +37,7 @@
           <element id="library" level="project" name="Gradle: mysql-connector-java-5.1.31" />
           <element id="library" level="project" name="Gradle: objectify-5.0.3" />
           <element id="library" level="project" name="Gradle: guice-multibindings-3.0" />
+          <element id="library" level="project" name="Gradle: appengine-api-1.0-sdk-1.9.7" />
         </element>
       </element>
       <element id="directory" name="META-INF">

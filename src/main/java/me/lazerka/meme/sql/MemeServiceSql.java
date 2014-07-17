@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -31,7 +30,7 @@ public class MemeServiceSql implements MemeService {
 	private CaptionMapper captionMapper;
 
 	@Inject
-	Provider<User> userProvider;
+	private User user;
 
 	@Override
 	public List<Meme> getLatest(int count) {
@@ -48,7 +47,6 @@ public class MemeServiceSql implements MemeService {
 	public void create(Meme meme) {
 		Image image = checkNotNull(meme.getImage());
 		String blobKey = image.getBlobKey().getKeyString();
-		User user = userProvider.get();
 
 		long imageId = imageMapper.insert(blobKey, image.getFileName(), image.getSize());
 		logger.trace("Created image {}", imageId);

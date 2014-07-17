@@ -3,7 +3,7 @@ project.version = '1.0'
 
 apply plugin: 'java'
 apply plugin: 'idea'
-//apply plugin: 'war'
+apply plugin: 'eclipse'
 
 // From http://stackoverflow.com/questions/20421681
 // See also http://forums.gradle.org/gradle/topics/how_do_i_best_define_dependencies_as_provided
@@ -11,14 +11,23 @@ configurations {
     provided
     provided.extendsFrom(compile)
 }
+sourceSets {
+    main { compileClasspath += configurations.provided }
+}
+
 idea {
     module {
         scopes.PROVIDED.plus += configurations.provided
+        downloadJavadoc = false
+        downloadSources = true
     }
 }
-//sourceSets {
-//    main { compileClasspath += configurations.provided }
-//}
+eclipse {
+    classpath {
+        downloadSources = true
+    }
+}
+
 
 sourceCompatibility = 1.7
 
@@ -96,17 +105,3 @@ gae {
 //    with war
 //}
 
-
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-eclipse {
-    classpath {
-        downloadSources = true
-    }
-}
-idea {
-    module {
-        downloadJavadoc = false
-        downloadSources = true
-    }
-}

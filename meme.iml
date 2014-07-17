@@ -54,7 +54,6 @@
     <orderEntry type="library" exported="" name="Gradle: slf4j-api-1.7.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: testng-6.8.8" level="project" />
     <orderEntry type="library" exported="" name="Gradle: slf4j-jdk14-1.7.7" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: appengine-api-1.0-sdk-1.9.6" level="project" />
     <orderEntry type="library" exported="" name="Gradle: objectify-5.0.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: mysql-connector-java-5.1.31" level="project" />
     <orderEntry type="library" exported="" name="Gradle: mybatis-3.2.7" level="project" />
@@ -66,14 +65,11 @@
     <orderEntry type="library" exported="" name="Gradle: jackson-databind-2.4.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-jaxrs-base-2.4.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jackson-module-jaxb-annotations-2.4.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: appengine-api-stubs-1.9.6" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: appengine-testing-1.9.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: jsr305-2.0.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: guava-17.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: joda-time-2.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-io-2.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: commons-lang3-3.3.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: appengine-api-1.0-sdk-1.9.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: objectify-5.0.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: mysql-connector-java-5.1.31" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: mybatis-3.2.7" level="project" />
@@ -100,6 +96,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: jackson-module-jaxb-annotations-2.4.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: guice-multibindings-3.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: guice-multibindings-3.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: appengine-api-1.0-sdk-1.9.7" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: appengine-api-1.0-sdk-1.9.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: appengine-api-stubs-1.9.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: appengine-testing-1.9.7" level="project" />
   </component>
 </module>
 

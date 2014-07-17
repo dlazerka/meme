@@ -17,8 +17,8 @@ import com.google.inject.Provides;
 import me.lazerka.meme.api.User;
 import me.lazerka.meme.gae.ServletModule;
 import me.lazerka.meme.ofy.MemeServiceOfy;
+import me.lazerka.meme.ofy.OfyModule;
 import me.lazerka.meme.sql.MemeServiceSql;
-import me.lazerka.meme.sql.SqlModule;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -29,22 +29,21 @@ public class MemeModule extends AbstractModule {
 	protected void configure() {
 		install(new ServletModule());
 
-		//install(new OfyModule());
-		install(new SqlModule());
+		install(new OfyModule());
+		useOfy();
 
-		useSql();
-		//useOfy();
+		//install(new SqlModule());
+		//useSql(); not done
 
 		bindGaeServices();
 	}
 
 	private void useOfy() {
-
-		bind(MemeService.class).to(MemeServiceOfy.class).asEagerSingleton();
+		bind(MemeService.class).to(MemeServiceOfy.class);
 	}
 
 	private void useSql() {
-		bind(MemeService.class).to(MemeServiceSql.class).asEagerSingleton();
+		bind(MemeService.class).to(MemeServiceSql.class);
 	}
 
 	private void bindGaeServices() {

@@ -103,3 +103,13 @@ a {
 .glyphicon-trash:before {
 	content: '\e020';
 }
+
+.caption {
+	color: #fff;
+	display: block;
+	font-size: 30px;
+	font-family: 'Open Sans Condensed', 'Impact', sans-serif;
+	position: absolute;
+	text-align: center;
+	width: 485px;
+}
