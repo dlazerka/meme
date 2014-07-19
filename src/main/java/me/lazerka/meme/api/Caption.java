@@ -1,6 +1,7 @@
 package me.lazerka.meme.api;
 
 import com.google.common.base.Strings;
+import com.googlecode.objectify.annotation.Index;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -12,6 +13,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 public class Caption {
 	public static int TEXT_MAX_LENGTH = 255;
 
+	@Index
 	String text;
 	int topPx;
 

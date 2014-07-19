@@ -2,8 +2,18 @@
 	text-align: center;
 	margin: 0 0 20px 0;
 }
+
+.meme .image {
+    /* To position .capture relative to this. */
+    position: relative;
+}
+
 .meme img {
 	width: 500px;
+}
+
+.meme .caption {
+    margin-left: 7px;
 }
 
 .meme .controls .delete {

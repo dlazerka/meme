@@ -40,8 +40,8 @@
 	<div class="ng-cloak" ng-controller="MemegenController">
 
 		<form class="card compose ng-cloak"
-		      ng-controller="ComposeController"
-		      ng-show="meme">
+			ng-controller="ComposeController"
+			ng-show="meme">
 
 			<div ng-if="!meme.image">
 				<div class="dragDrop" drop-here file="meme.image">
@@ -58,9 +58,9 @@
 			<div class="image" ng-if="meme.image">
 				<img ng-src="{{meme.image.url}}"/>
 				<input type="text" class="caption top"
-				       ng-model="captions.top" />
+					   ng-model="captions.top" />
 				<input type="text" class="caption bottom"
-				       ng-model="captions.bottom"/>
+					   ng-model="captions.bottom"/>
 			</div>
 
 			<div class="controls" ng-show="{{!meme}}">
@@ -71,9 +71,12 @@
 
 		<div>
 			<div class="card savedmeme meme" ng-repeat="meme in memes" >
-				<img ng-src="{{meme.image.url}}"/>
-				<div class="captions">
-					<div class="caption" ng-repeat="caption in meme.captions">df{{caption.text}}</div>
+				<div class="image">
+					<img ng-src="{{meme.image.url}}"/>
+					<div class="caption" style="top: {{caption.topPx}}px;"
+						 ng-repeat="caption in meme.captions">
+						{{caption.text}}
+					</div>
 				</div>
 				<div class="controls">
 					<div class="delete" ng-click="remove(meme)" ng-show="{{meme.id}}">

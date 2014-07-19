@@ -64,7 +64,7 @@ public class MemeServiceSql implements MemeService {
 
 	@Transactional
 	@Override
-	public void delete(long id) {
+	public void delete(String email, long id) {
 		// TODO: Check for owner?
 
 		memeMapper.delete(id);

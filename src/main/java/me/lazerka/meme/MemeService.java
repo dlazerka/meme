@@ -13,5 +13,5 @@ public interface MemeService {
 
 	void create(Meme meme);
 
-	void delete(long id);
+	void delete(String email, long id);
 }

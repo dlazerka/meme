@@ -57,7 +57,7 @@ public class MemeServiceOfy implements MemeService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public void delete(String email, long id) {
 		/*
 		if (!user.getEmail().equals(owner)) {
 			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you.").build();
@@ -65,7 +65,8 @@ public class MemeServiceOfy implements MemeService {
 		}
 		*/
 
-		Key<Meme> memeKey = Key.create(Meme.class, id);
+        Key<User> parentKey = Key.create(User.class, email);
+        Key<Meme> memeKey = Key.create(parentKey, Meme.class, id);
 
 		ofy.delete().key(memeKey).now();
 

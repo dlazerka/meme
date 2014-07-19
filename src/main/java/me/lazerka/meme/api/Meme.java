@@ -26,7 +26,7 @@ public class Meme {
 
 	Image image;
 
-	final List<Caption> captions = new ArrayList<>(3);
+	List<Caption> captions = new ArrayList<>(3);
 
 	@JsonIgnore
 	public Ref<User> getOwnerRef() {

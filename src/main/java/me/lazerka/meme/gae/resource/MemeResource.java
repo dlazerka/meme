@@ -111,9 +111,12 @@ public class MemeResource {
 	*/
 
 	@DELETE
-	@Path("/{id}")
+	@Path("/{email}/{id}")
 	@Consumes("application/json")
-	public void delete(@PathParam("id") long id) {
-		memeService.delete(id);
+	public void delete(
+            @PathParam("email") String email,
+            @PathParam("id") long id
+    ) {
+		memeService.delete(email, id);
 	}
 }
