@@ -15,7 +15,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import me.lazerka.meme.api.User;
-import me.lazerka.meme.gae.ServletModule;
+import me.lazerka.meme.gae.WebModule;
 import me.lazerka.meme.ofy.MemeServiceOfy;
 import me.lazerka.meme.ofy.OfyModule;
 import me.lazerka.meme.sql.MemeServiceSql;
@@ -27,7 +27,7 @@ import javax.inject.Named;
 public class MemeModule extends AbstractModule {
 	@Override
 	protected void configure() {
-		install(new ServletModule());
+		install(new WebModule());
 
 		install(new OfyModule());
 		useOfy();

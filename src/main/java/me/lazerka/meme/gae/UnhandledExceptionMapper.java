@@ -11,6 +11,9 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * @author Dzmitry Lazerka
+ */
 @Singleton
 @Provider
 public class UnhandledExceptionMapper implements ExceptionMapper<Exception> {

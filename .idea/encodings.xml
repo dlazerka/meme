@@ -3,7 +3,7 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/src/main/java/me/lazerka/meme/gae/BypassGuiceFilter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/me/lazerka/meme/gae/ServletContextListener.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/me/lazerka/meme/gae/ServletModule.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/lazerka/meme/gae/WebModule.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/appengine-web.xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/logging.properties" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/js/lib" charset="UTF-8" />

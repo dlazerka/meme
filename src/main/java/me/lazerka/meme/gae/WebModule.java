@@ -17,12 +17,10 @@ import javax.inject.Singleton;
 import java.util.Map;
 
 /**
- * Workaround for Blobstore on Dev env. See ImageResource.
- *
  * @author Dzmitry Lazerka
  */
-public class ServletModule extends JerseyServletModule {
-	private static final Logger logger = LoggerFactory.getLogger(ServletModule.class);
+public class WebModule extends JerseyServletModule {
+	private static final Logger logger = LoggerFactory.getLogger(WebModule.class);
 
 	@Override
 	protected void configureServlets() {
@@ -34,9 +32,7 @@ public class ServletModule extends JerseyServletModule {
 		filter("/*").through(ObjectifyFilter.class);
 
 		// Route all requests through GuiceContainer.
-//		serve("/db").with(DBServlet.class);
 		serve("/rest/*").with(GuiceContainer.class, getJerseyParams());
-		//serve("/image/blobstore-callback-dev").with(BlobstoreCallbackServlet.class);
 
 		bind(UnhandledExceptionMapper.class);
 

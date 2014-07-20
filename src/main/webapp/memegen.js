@@ -30,7 +30,7 @@ angular.module('me.lazerka.memegen', [
 		});
 	})
 	.controller('MemegenController', function($rootScope, $scope, $resource, MEME_URL) {
-		// TODO: extract into a Service maybe?
+		// TODO: extract into a Service
 		var memeResource = $resource(MEME_URL, {});
 
 		$scope.memes = memeResource.query(function(data) {});
@@ -40,7 +40,6 @@ angular.module('me.lazerka.memegen', [
 		});
 
 		$scope.remove = function(meme) {
-
 			var resource = memeResource.remove({
 				'ownerEmail': meme.ownerEmail,
 				id: meme.id
@@ -51,10 +50,6 @@ angular.module('me.lazerka.memegen', [
 			$scope.memes = _.reject($scope.memes, function(el) {
 				return el.id == meme.id;
 			});
-			//_.findWhere($scope.memes, {id: meme.id});
-			//var i = $scope.memes.findIndex(function(el) {
-			//	return el.id === meme.id;
-			//});
 		}
 	});
 

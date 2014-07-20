@@ -15,6 +15,9 @@ public class Caption {
 
 	@Index
 	String text;
+
+	Caption.Position position;
+
 	int topPx;
 
 	public String getText() {
@@ -35,5 +38,9 @@ public class Caption {
 		checkArgument(topPx >= 0);
 		checkArgument(topPx < 10000);
 		this.topPx = topPx;
+	}
+
+	public static enum Position {
+		TOP, BOTTOM, MIDDLE, CUSTOM
 	}
 }

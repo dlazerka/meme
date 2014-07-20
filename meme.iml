@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="google-app-engine" name="Google App Engine">
       <configuration>
-        <sdk-home-path>$USER_HOME$/opt/appengine-java-sdk-1.9.5</sdk-home-path>
+        <sdk-home-path>$USER_HOME$/opt/appengine-java-sdk-1.9.7</sdk-home-path>
       </configuration>
     </facet>
     <facet type="web" name="Web Gradle : meme-1.0.war">
@@ -90,9 +90,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: aopalliance-1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: asm-3.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: cglib-2.2.1-v20090111" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: jackson-core-2.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: jackson-databind-2.4.1" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: jackson-jaxrs-base-2.4.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: jackson-module-jaxb-annotations-2.4.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: guice-multibindings-3.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: guice-multibindings-3.0" level="project" />
