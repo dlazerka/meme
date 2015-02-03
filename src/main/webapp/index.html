@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <!-- Author: Dzmitry Lazerka -->
-
-<html>
+<html ng-csp>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>Memegen</title>
@@ -10,11 +8,17 @@
 	<link href="/index.css" rel="stylesheet" type="text/css">
 	<link href="/meme/meme.css" rel="stylesheet" type="text/css">
 	<link href="/compose/compose.css" rel="stylesheet" type="text/css">
-	<script type="text/css">
-		.ng-cloak {
-			visibility: hidden;
+	<style type="text/css">
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+		.ng-cloak, .x-ng-cloak,
+		.ng-hide:not(.ng-hide-animate) {
+			display: none !important;
 		}
-	</script>
+
+		ng\:form {
+			display: block;
+		}
+	</style>
 </head>
 <body ng-app="me.lazerka.memegen">
 <div class="left card">
@@ -48,7 +52,7 @@
 					Drag &amp; drop<br/> image here
 				</div>
 
-				<div>
+				<div class="pickFile">
 					Or <input type="file" my-onchange file="meme.image"/>
 				</div>
 

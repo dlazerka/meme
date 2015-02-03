@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class MemeServiceOfy implements MemeService {
 				.type(Meme.class)
 				.limit(100)
 				.chunkAll()
+				.filter("createdAt > ", new Date(1))
 				.order("-createdAt")
 				.list();
 

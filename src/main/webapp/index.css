@@ -87,6 +87,14 @@ a {
 	margin-left: 20px;
 }
 
+.pickFile {
+	padding-top: 12px;
+}
+
+.pickFile input {
+	font-size: 18px;
+}
+
 /** From Bootstrap */
 .glyphicon {
 	position: relative;
