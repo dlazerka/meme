@@ -7,6 +7,8 @@
     <server-settings>
       <option name="artifact" value="meme:war exploded" />
       <option name="port" value="8280" />
+      <port>8280</port>
+      <artifact>meme:war exploded</artifact>
     </server-settings>
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <RunnerSettings RunnerId="Cover" />

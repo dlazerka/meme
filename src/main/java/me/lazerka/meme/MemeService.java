@@ -13,5 +13,7 @@ public interface MemeService {
 
 	void create(Meme meme);
 
-	void delete(String email, long id);
+	void delete(long id) throws OwnerMismatchException;
+
+	class OwnerMismatchException extends Exception {}
 }

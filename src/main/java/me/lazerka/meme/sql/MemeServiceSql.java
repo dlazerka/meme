@@ -1,10 +1,10 @@
 package me.lazerka.meme.sql;
 
+import com.google.appengine.api.users.User;
 import me.lazerka.meme.MemeService;
 import me.lazerka.meme.api.Caption;
 import me.lazerka.meme.api.Image;
 import me.lazerka.meme.api.Meme;
-import me.lazerka.meme.api.User;
 import org.mybatis.guice.transactional.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +52,7 @@ public class MemeServiceSql implements MemeService {
 		logger.trace("Created image {}", imageId);
 
 		long memeId = memeMapper.insert(user.getEmail(), imageId);
+		meme.setId(memeId);
 		logger.trace("Created meme {}", memeId);
 
 		for(Caption caption : meme.getCaptions()) {
@@ -64,11 +65,18 @@ public class MemeServiceSql implements MemeService {
 
 	@Transactional
 	@Override
-	public void delete(String email, long id) {
-		// TODO: Check for owner?
+	public void delete(long id) throws OwnerMismatchException {
+		Meme meme = memeMapper.get(id);
+
+		if (meme == null) {
+			logger.warn("Not found meme {} to delete", id);
+			return;
+		}
+
+		if (!meme.getCreatedBy().equals(user.getEmail())) {
+			throw new OwnerMismatchException();
+		}
 
 		memeMapper.delete(id);
-
-		// TODO: remove blob or not?
 	}
 }

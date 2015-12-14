@@ -1,10 +1,9 @@
 package me.lazerka.meme.ofy;
 
-import com.googlecode.objectify.Key;
+import com.google.appengine.api.users.User;
 import com.googlecode.objectify.Objectify;
 import me.lazerka.meme.MemeService;
 import me.lazerka.meme.api.Meme;
-import me.lazerka.meme.api.User;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +49,7 @@ public class MemeServiceOfy implements MemeService {
 	@Override
 	public void create(Meme meme) {
 		meme.setCreatedAt(now);
-		meme.setOwner(user);
+		meme.setCreatedBy(user.getEmail());
 
 		ofy.save()
 				.entity(meme)
@@ -59,18 +58,21 @@ public class MemeServiceOfy implements MemeService {
 	}
 
 	@Override
-	public void delete(String email, long id) {
-		/*
-		if (!user.getEmail().equals(owner)) {
-			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you.").build();
-			throw new WebApplicationException(response);
+	public void delete(long id) throws OwnerMismatchException {
+		Meme meme = ofy.load()
+				.type(Meme.class)
+				.id(id)
+				.now();
+		if (meme == null) {
+			logger.warn("Not found meme {} to delete", id);
+			return;
 		}
-		*/
 
-        Key<User> parentKey = Key.create(User.class, email);
-        Key<Meme> memeKey = Key.create(parentKey, Meme.class, id);
+		if (!meme.getCreatedBy().equals(user.getEmail())) {
+			throw new OwnerMismatchException();
+		}
 
-		ofy.delete().key(memeKey).now();
+		ofy.delete().entity(meme).now();
 
 		logger.info("Deleted meme {}", id);
 	}

@@ -1,13 +1,16 @@
 package me.lazerka.meme.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.googlecode.objectify.Ref;
-import com.googlecode.objectify.annotation.*;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * @author Dzmitry Lazerka
@@ -15,11 +18,11 @@ import java.util.List;
 @Entity(name = "Meme")
 @Cache
 public class Meme {
-	@Parent
-	Ref<User> owner;
-
 	@Id
 	Long id;
+
+	@Index
+	String createdBy;
 
 	@Index
 	DateTime createdAt;
@@ -28,28 +31,22 @@ public class Meme {
 
 	List<Caption> captions = new ArrayList<>(3);
 
-	@JsonIgnore
-	public Ref<User> getOwnerRef() {
-		return owner;
-	}
-
-	@JsonProperty("ownerEmail")
-	public String getOwnerEmail() {
-		return owner.getKey().getName();
-	}
-
-	@JsonIgnore
-	public void setOwner(Ref<User> owner) {
-		this.owner = owner;
-	}
-
-	@JsonIgnore
-	public void setOwner(User owner) {
-		this.owner = Ref.create(owner);
-	}
-
 	public Long getId() {
 		return id;
+	}
+
+	public void setId(Long id) {
+		checkState(this.id == null);
+		this.id = id;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	@JsonIgnore
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public DateTime getCreatedAt() {
@@ -75,8 +72,8 @@ public class Meme {
 	@Override
 	public String toString() {
 		return "Meme{" +
-				"owner=" + owner +
-				", id=" + id +
+				"id=" + id +
+				", createdBy=" + createdBy +
 				", createdAt=" + createdAt +
 				", image=" + image +
 				", captions=" + captions +

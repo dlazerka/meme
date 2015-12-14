@@ -4,7 +4,6 @@ import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.UploadOptions;
-import me.lazerka.meme.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +31,6 @@ public class ImageResource {
 
 	@Inject
 	BlobstoreService blobstore;
-
-	@Inject
-	User user;
 
 	@GET
 	@Path("/url-for-upload")

@@ -59,7 +59,10 @@ public class SqlModule extends AbstractModule {
 		protected void initialize() {
 			bindDataSourceProviderType(PooledDataSourceProvider.class);
 			bindTransactionFactoryType(JdbcTransactionFactory.class);
+			mapUnderscoreToCamelCase(true);
+			useGeneratedKeys(true);
 
+			addTypeHandlerClass(DateTimeTypeHandler.class);
 
 			//	DataSource dataSource = BlogDataSourceFactory.getBlogDataSource();
 			//	TransactionFactory transactionFactory = new JdbcTransactionFactory();
@@ -77,7 +80,7 @@ public class SqlModule extends AbstractModule {
 			myBatisProperties.setProperty("mybatis.environment.id", "test");
 			myBatisProperties.setProperty("JDBC.schema", "mybatis-guice_TEST");
 			myBatisProperties.setProperty("derby.create", "true");
-			myBatisProperties.setProperty("JDBC.username", "dl");
+			myBatisProperties.setProperty("JDBC.username", "meme");
 			myBatisProperties.setProperty("JDBC.password", "");
 			myBatisProperties.setProperty("JDBC.autoCommit", "false");
 			bindProperties(this.binder(), myBatisProperties);

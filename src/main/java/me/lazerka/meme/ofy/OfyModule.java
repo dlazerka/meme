@@ -7,7 +7,6 @@ import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.impl.translate.opt.joda.JodaTimeTranslators;
 import me.lazerka.meme.api.Meme;
-import me.lazerka.meme.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +23,6 @@ public class OfyModule extends AbstractModule {
 		JodaTimeTranslators.add(factory);
 
 		factory.register(Meme.class);
-		factory.register(User.class);
 
 		// Warmup Objectify.
 		Objectify ofy = factory.begin();

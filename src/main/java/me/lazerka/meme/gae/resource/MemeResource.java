@@ -6,6 +6,7 @@ import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFailureException;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.images.ServingUrlOptions.Builder;
+import me.lazerka.meme.MemeService.OwnerMismatchException;
 import me.lazerka.meme.api.Meme;
 import me.lazerka.meme.MemeService;
 import org.slf4j.Logger;
@@ -111,12 +112,14 @@ public class MemeResource {
 	*/
 
 	@DELETE
-	@Path("/{email}/{id}")
+	@Path("/{id}")
 	@Consumes("application/json")
-	public void delete(
-            @PathParam("email") String email,
-            @PathParam("id") long id
-    ) {
-		memeService.delete(email, id);
+	public void delete(@PathParam("id") long id) {
+		try {
+			memeService.delete(id);
+		} catch (OwnerMismatchException e) {
+			Response response = Response.status(Status.FORBIDDEN).entity("Not created by you.").build();
+			throw new WebApplicationException(response);
+		}
 	}
 }

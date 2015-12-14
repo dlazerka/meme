@@ -10,30 +10,31 @@ import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 import com.google.appengine.api.urlfetch.URLFetchService;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import me.lazerka.meme.api.User;
 import me.lazerka.meme.gae.WebModule;
 import me.lazerka.meme.ofy.MemeServiceOfy;
-import me.lazerka.meme.ofy.OfyModule;
 import me.lazerka.meme.sql.MemeServiceSql;
+import me.lazerka.meme.sql.SqlModule;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import javax.inject.Named;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MemeModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		install(new WebModule());
 
-		install(new OfyModule());
-		useOfy();
-
-		//install(new SqlModule());
-		//useSql(); not done
+//		install(new OfyModule());
+//		useOfy();
+		install(new SqlModule());
+		useSql();
 
 		bindGaeServices();
 	}
@@ -57,7 +58,7 @@ public class MemeModule extends AbstractModule {
 
 	@Provides
 	private User provideUser(UserService userService) {
-		return new User(userService.getCurrentUser());
+		return checkNotNull(userService.getCurrentUser());
 	}
 
 	@Provides
@@ -65,5 +66,4 @@ public class MemeModule extends AbstractModule {
 	private DateTime now() {
 		return DateTime.now(DateTimeZone.UTC);
 	}
-
 }
